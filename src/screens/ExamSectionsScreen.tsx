@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Colors } from '../theme/colors';
-import { examSections } from '../data/examSections';
+import { examModels, hoerenModels, lesenModels, schreibenModels } from '../data/examSections';
 
 export default function ExamSectionsScreen() {
+  const [tab, setTab] = useState<'models' | 'hoeren' | 'lesen' | 'schreiben'>('models');
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.pageTitle}>أقسام الامتحان</Text>
@@ -17,27 +19,100 @@ export default function ExamSectionsScreen() {
         امتحان B1 يتكون من 5 أقسام. تعرّف على كل قسم واستعد له جيداً.
       </Text>
 
-      {examSections.map((section) => (
-        <View key={section.id} style={styles.card}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tabScroll}>
+        <View style={styles.tabRow}>
+          {([
+            { key: 'models' as const, label: '📝 نماذج' },
+            { key: 'hoeren' as const, label: '🎧 استماع' },
+            { key: 'lesen' as const, label: '📖 قراءة' },
+            { key: 'schreiben' as const, label: '✍️ كتابة' },
+          ]).map(t => (
+            <TouchableOpacity
+              key={t.key}
+              style={[styles.tab, tab === t.key && styles.activeTab]}
+              onPress={() => setTab(t.key)}
+            >
+              <Text style={[styles.tabText, tab === t.key && styles.activeTabText]}>
+                {t.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
+
+      {tab === 'models' && examModels.map((model) => (
+        <View key={model.id} style={styles.card}>
           <View style={styles.cardHeader}>
-            <Text style={styles.cardIcon}>{section.icon}</Text>
+            <Text style={styles.cardIcon}>{model.themeIcon}</Text>
             <View style={styles.cardTitles}>
-              <Text style={styles.cardTitleDE}>{section.titleDE}</Text>
-              <Text style={styles.cardTitleAR}>{section.titleAR}</Text>
+              <Text style={styles.cardTitleDE}>{model.titleDe}</Text>
+              <Text style={styles.cardTitleAR}>{model.titleAr}</Text>
             </View>
             <View style={styles.durationBadge}>
-              <Text style={styles.durationText}>{section.duration}</Text>
+              <Text style={styles.durationText}>{model.durationMin} د</Text>
             </View>
           </View>
+          <Text style={styles.cardDesc}>{model.descriptionAr}</Text>
+          {model.highlights && model.highlights.length > 0 && (
+            <View style={styles.tipsContainer}>
+              <Text style={styles.tipsTitle}>📋 المحتوى:</Text>
+              {model.highlights.map((h: string, i: number) => (
+                <Text key={i} style={styles.tipItem}>• {h}</Text>
+              ))}
+            </View>
+          )}
+        </View>
+      ))}
 
-          <Text style={styles.cardDesc}>{section.description}</Text>
-
+      {tab === 'hoeren' && hoerenModels.map((model) => (
+        <View key={model.id} style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardIcon}>🎧</Text>
+            <View style={styles.cardTitles}>
+              <Text style={styles.cardTitleDE}>{model.title}</Text>
+            </View>
+          </View>
+          <Text style={styles.cardDesc}>{model.description}</Text>
           <View style={styles.tipsContainer}>
-            <Text style={styles.tipsTitle}>💡 نصائح:</Text>
-            {section.tips.map((tip, index) => (
-              <Text key={index} style={styles.tipItem}>
-                • {tip}
-              </Text>
+            <Text style={styles.tipsTitle}>📋 الأجزاء: {model.parts.length}</Text>
+            {model.parts.map((part: any, i: number) => (
+              <Text key={i} style={styles.tipItem}>• {part.title}</Text>
+            ))}
+          </View>
+        </View>
+      ))}
+
+      {tab === 'lesen' && lesenModels.map((model) => (
+        <View key={model.id} style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardIcon}>📖</Text>
+            <View style={styles.cardTitles}>
+              <Text style={styles.cardTitleDE}>{model.title}</Text>
+            </View>
+          </View>
+          <Text style={styles.cardDesc}>{model.description}</Text>
+          <View style={styles.tipsContainer}>
+            <Text style={styles.tipsTitle}>📋 الأجزاء: {model.parts.length}</Text>
+            {model.parts.map((part: any, i: number) => (
+              <Text key={i} style={styles.tipItem}>• {part.title}</Text>
+            ))}
+          </View>
+        </View>
+      ))}
+
+      {tab === 'schreiben' && schreibenModels.map((model) => (
+        <View key={model.id} style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardIcon}>✍️</Text>
+            <View style={styles.cardTitles}>
+              <Text style={styles.cardTitleDE}>{model.title}</Text>
+            </View>
+          </View>
+          <Text style={styles.cardDesc}>{model.description}</Text>
+          <View style={styles.tipsContainer}>
+            <Text style={styles.tipsTitle}>📋 المهام: {model.tasks.length}</Text>
+            {model.tasks.map((task: any, i: number) => (
+              <Text key={i} style={styles.tipItem}>• {task.title || task.titleAr || `مهمة ${i + 1}`}</Text>
             ))}
           </View>
         </View>
@@ -71,6 +146,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     lineHeight: 22,
   },
+  tabScroll: { marginBottom: 16 },
+  tabRow: { flexDirection: 'row', backgroundColor: '#e8ede8', borderRadius: 10, padding: 4 },
+  tab: { paddingVertical: 10, paddingHorizontal: 14, borderRadius: 8, marginRight: 4 },
+  activeTab: { backgroundColor: Colors.white },
+  tabText: { fontSize: 13, fontWeight: '600', color: Colors.muted },
+  activeTabText: { color: Colors.green },
   card: {
     backgroundColor: Colors.card,
     borderRadius: 12,
