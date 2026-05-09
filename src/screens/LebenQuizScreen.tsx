@@ -20,7 +20,10 @@ export default function LebenQuizScreen() {
 
   const filteredQuestions = selectedCategory === 'all'
     ? lebenQuestions
-    : lebenQuestions.filter(q => q.category === selectedCategory);
+    : lebenQuestions.filter(q => {
+        const cat = lebenCategories.find(c => c.id === selectedCategory);
+        return cat ? q.category === cat.name : q.category === selectedCategory;
+      });
 
   const currentQuestion = filteredQuestions[currentIndex];
 
@@ -105,7 +108,6 @@ export default function LebenQuizScreen() {
 
         <View style={styles.questionCard}>
           <Text style={styles.questionText}>{currentQuestion.question}</Text>
-          <Text style={styles.questionTextAr}>{currentQuestion.questionAr}</Text>
 
           {currentQuestion.options.map((option, index) => {
             let optionStyle = styles.optionButton;
@@ -131,14 +133,6 @@ export default function LebenQuizScreen() {
             );
           })}
 
-          {answered && currentQuestion.explanation && (
-            <View style={styles.explanationBox}>
-              <Text style={styles.explanationTitle}>📖 الشرح:</Text>
-              <Text style={styles.explanationText}>
-                {currentQuestion.explanation}
-              </Text>
-            </View>
-          )}
 
           {answered && (
             <TouchableOpacity style={styles.nextButton} onPress={nextQuestion}>
@@ -179,7 +173,7 @@ export default function LebenQuizScreen() {
           <Text style={styles.categoryIcon}>{cat.icon || '📍'}</Text>
           <View style={styles.categoryInfo}>
             <Text style={styles.categoryName}>{cat.name}</Text>
-            <Text style={styles.categoryNameAr}>{cat.nameAr}</Text>
+            <Text style={styles.categoryNameAr}>{cat.name}</Text>
           </View>
           <View style={styles.categoryCountBadge}>
             <Text style={styles.categoryCount}>{cat.count}</Text>
