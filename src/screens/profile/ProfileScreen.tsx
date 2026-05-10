@@ -8,21 +8,24 @@ import {
   TouchableOpacity,
   Switch,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fontSize, fontWeight, spacing, borderRadius } from '../../utils/theme';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { useSubscription } from '../../contexts/SubscriptionContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const ProfileScreen: React.FC = () => {
   const { t, isRTL, language, setLanguage } = useLanguage();
   const { isPremium, subscribe, unsubscribe } = useSubscription();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, isLoggedIn, isLoading: authLoading, login, register, logout } = useAuth();
   const [isRegistering, setIsRegistering] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [loginData, setLoginData] = useState({ email: '', password: '', firstName: '', lastName: '', confirmPassword: '' });
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!loginData.email || !loginData.password) {
       Alert.alert(
         language === 'ar' ? 'تنبيه' : 'Hinweis',
@@ -30,10 +33,20 @@ export const ProfileScreen: React.FC = () => {
       );
       return;
     }
-    setIsLoggedIn(true);
+    setIsSubmitting(true);
+    try {
+      await login(loginData.email, loginData.password);
+    } catch (err: any) {
+      Alert.alert(
+        language === 'ar' ? 'خطأ' : 'Fehler',
+        err.message || (language === 'ar' ? 'فشل تسجيل الدخول' : 'Anmeldung fehlgeschlagen')
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!loginData.email || !loginData.password || !loginData.firstName) {
       Alert.alert(
         language === 'ar' ? 'تنبيه' : 'Hinweis',
@@ -48,7 +61,23 @@ export const ProfileScreen: React.FC = () => {
       );
       return;
     }
-    setIsLoggedIn(true);
+    setIsSubmitting(true);
+    try {
+      await register({
+        email: loginData.email,
+        password: loginData.password,
+        first_name: loginData.firstName,
+        last_name: loginData.lastName,
+        language,
+      });
+    } catch (err: any) {
+      Alert.alert(
+        language === 'ar' ? 'خطأ' : 'Fehler',
+        err.message || (language === 'ar' ? 'فشل إنشاء الحساب' : 'Registrierung fehlgeschlagen')
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isLoggedIn) {
@@ -145,12 +174,17 @@ export const ProfileScreen: React.FC = () => {
           )}
 
           <TouchableOpacity
-            style={styles.submitButton}
+            style={[styles.submitButton, isSubmitting && { opacity: 0.7 }]}
             onPress={isRegistering ? handleRegister : handleLogin}
+            disabled={isSubmitting}
           >
-            <Text style={styles.submitText}>
-              {isRegistering ? t('register') : t('login')}
-            </Text>
+            {isSubmitting ? (
+              <ActivityIndicator color={colors.textOnPrimary} />
+            ) : (
+              <Text style={styles.submitText}>
+                {isRegistering ? t('register') : t('login')}
+              </Text>
+            )}
           </TouchableOpacity>
 
           {!isRegistering && (
@@ -182,8 +216,8 @@ export const ProfileScreen: React.FC = () => {
         <View style={styles.avatarLarge}>
           <Ionicons name="person" size={50} color={colors.primary} />
         </View>
-        <Text style={styles.profileName}>{loginData.firstName || 'User'} {loginData.lastName}</Text>
-        <Text style={styles.profileEmail}>{loginData.email}</Text>
+        <Text style={styles.profileName}>{user?.first_name || 'User'} {user?.last_name || ''}</Text>
+        <Text style={styles.profileEmail}>{user?.email || ''}</Text>
       </View>
 
       {/* Menu Items */}
@@ -348,7 +382,7 @@ export const ProfileScreen: React.FC = () => {
       </View>
 
       {/* Logout */}
-      <TouchableOpacity style={styles.logoutButton} onPress={() => setIsLoggedIn(false)}>
+      <TouchableOpacity style={styles.logoutButton} onPress={logout}>
         <Ionicons name="log-out" size={20} color={colors.error} />
         <Text style={styles.logoutText}>{t('logout')}</Text>
       </TouchableOpacity>
