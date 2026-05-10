@@ -48,6 +48,55 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     },
   ];
 
+  const newFeatures = [
+    {
+      icon: 'mail',
+      title: t('feature5Title'),
+      desc: t('feature5Desc'),
+      color: '#2563EB',
+      screen: 'PoliceMailScreen',
+    },
+    {
+      icon: 'alert-circle',
+      title: t('feature6Title'),
+      desc: t('feature6Desc'),
+      color: '#DC2626',
+      screen: 'FalseAccusationsScreen',
+      premium: true,
+    },
+    {
+      icon: 'hand-left',
+      title: t('feature7Title'),
+      desc: t('feature7Desc'),
+      color: '#059669',
+      screen: 'ChildRemovalScreen',
+      premium: true,
+    },
+    {
+      icon: 'home',
+      title: t('feature8Title'),
+      desc: t('feature8Desc'),
+      color: '#DB2777',
+      screen: 'FrauenhausScreen',
+    },
+    {
+      icon: 'heart-half',
+      title: t('feature9Title'),
+      desc: t('feature9Desc'),
+      color: '#7C3AED',
+      screen: 'BeforeDivorceScreen',
+      premium: true,
+    },
+    {
+      icon: 'document-text',
+      title: t('feature10Title'),
+      desc: t('feature10Desc'),
+      color: '#0891B2',
+      screen: 'AfterDivorceScreen',
+      premium: true,
+    },
+  ];
+
   const stats = [
     { icon: 'people', value: '5,000+', label: t('statsClients'), color: colors.primary },
     { icon: 'chatbubbles', value: '12,000+', label: t('statsConsultations'), color: '#3B82F6' },
@@ -134,6 +183,50 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             onPress={() => navigation.navigate('LegalTab', { screen: feature.screen })}
           />
         ))}
+      </View>
+
+      {/* New Legal Topics */}
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { textAlign: isRTL ? 'right' : 'left' }]}>
+          {t('newTopicsTitle')}
+        </Text>
+        {newFeatures.map((feature, index) => (
+          <FeatureCard
+            key={`new-${index}`}
+            icon={feature.icon}
+            title={feature.title}
+            description={feature.desc}
+            color={feature.color}
+            premium={feature.premium}
+            onPress={() => navigation.navigate('LegalTab', { screen: feature.screen })}
+          />
+        ))}
+      </View>
+
+      {/* Private Consultation CTA */}
+      <View style={styles.section}>
+        <View style={styles.consultCta}>
+          <View style={styles.consultCtaIcon}>
+            <Ionicons name="chatbubbles" size={36} color={colors.secondary} />
+          </View>
+          <Text style={[styles.consultCtaTitle, { textAlign: isRTL ? 'right' : 'left' }]}>
+            {t('privateConsultation')}
+          </Text>
+          <Text style={[styles.consultCtaDesc, { textAlign: isRTL ? 'right' : 'left' }]}>
+            {t('privateConsultationDesc')}
+          </Text>
+          <View style={styles.consultCtaPricing}>
+            <Text style={styles.consultCtaPrice}>5€</Text>
+            <Text style={styles.consultCtaDuration}>/ 30 {language === 'ar' ? 'دقيقة' : 'Minuten'}</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.consultCtaButton}
+            onPress={() => navigation.navigate('ConsultationTab')}
+          >
+            <Ionicons name="chatbubble-ellipses" size={20} color={colors.primary} />
+            <Text style={styles.consultCtaButtonText}>{t('chatNow')}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Testimonials Section */}
@@ -309,6 +402,63 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     paddingHorizontal: spacing.lg,
+  },
+  consultCta: {
+    backgroundColor: colors.primary,
+    borderRadius: borderRadius.xl,
+    padding: spacing.xl,
+    marginHorizontal: spacing.lg,
+    alignItems: 'center',
+  },
+  consultCtaIcon: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: spacing.md,
+  },
+  consultCtaTitle: {
+    fontSize: fontSize.xl,
+    fontWeight: fontWeight.bold,
+    color: colors.textOnPrimary,
+    marginBottom: spacing.sm,
+  },
+  consultCtaDesc: {
+    fontSize: fontSize.md,
+    color: 'rgba(255,255,255,0.8)',
+    lineHeight: 24,
+    marginBottom: spacing.md,
+  },
+  consultCtaPricing: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    marginBottom: spacing.lg,
+  },
+  consultCtaPrice: {
+    fontSize: 36,
+    fontWeight: fontWeight.extrabold,
+    color: colors.secondary,
+  },
+  consultCtaDuration: {
+    fontSize: fontSize.md,
+    color: 'rgba(255,255,255,0.7)',
+    marginLeft: 4,
+  },
+  consultCtaButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.secondary,
+    paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.md,
+    borderRadius: borderRadius.full,
+    gap: spacing.sm,
+  },
+  consultCtaButtonText: {
+    color: colors.primaryDark,
+    fontSize: fontSize.lg,
+    fontWeight: fontWeight.bold,
   },
   ctaSection: {
     paddingHorizontal: spacing.lg,

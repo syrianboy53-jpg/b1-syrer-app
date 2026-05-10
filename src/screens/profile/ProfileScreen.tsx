@@ -12,9 +12,11 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fontSize, fontWeight, spacing, borderRadius } from '../../utils/theme';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { useSubscription } from '../../contexts/SubscriptionContext';
 
 export const ProfileScreen: React.FC = () => {
   const { t, isRTL, language, setLanguage } = useLanguage();
+  const { isPremium, subscribe, unsubscribe } = useSubscription();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
@@ -252,6 +254,75 @@ export const ProfileScreen: React.FC = () => {
         </View>
       </View>
 
+      {/* Subscription Section */}
+      <View style={styles.menuSection}>
+        <Text style={[styles.menuTitle, { textAlign: isRTL ? 'right' : 'left' }]}>
+          {t('subscriptionTitle')}
+        </Text>
+
+        <View style={styles.subscriptionCard}>
+          <View style={[styles.subscriptionBadge, isPremium ? styles.premiumBadge : styles.freeBadge]}>
+            <Ionicons
+              name={isPremium ? 'diamond' : 'person'}
+              size={18}
+              color={isPremium ? '#C8A951' : colors.textLight}
+            />
+            <Text style={[styles.subscriptionBadgeText, isPremium && styles.premiumBadgeText]}>
+              {isPremium ? t('premiumPlan') : t('freePlan')}
+            </Text>
+          </View>
+
+          {!isPremium ? (
+            <>
+              <Text style={[styles.subscriptionDesc, { textAlign: isRTL ? 'right' : 'left' }]}>
+                {t('subscriptionDesc')}
+              </Text>
+              <View style={styles.benefitsList}>
+                {[t('premiumBenefit1'), t('premiumBenefit2'), t('premiumBenefit3'), t('premiumBenefit4')].map((benefit, i) => (
+                  <View key={i} style={styles.benefitRow}>
+                    <Ionicons name="checkmark-circle" size={18} color="#10B981" />
+                    <Text style={[styles.benefitText, { textAlign: isRTL ? 'right' : 'left' }]}>{benefit}</Text>
+                  </View>
+                ))}
+              </View>
+              <View style={styles.pricingRow}>
+                <Text style={styles.priceText}>4.99€</Text>
+                <Text style={styles.priceUnit}>{t('perMonth')}</Text>
+              </View>
+              <TouchableOpacity style={styles.subscribeButton} onPress={subscribe}>
+                <Ionicons name="diamond" size={18} color={colors.primary} />
+                <Text style={styles.subscribeButtonText}>{t('subscribNow')}</Text>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <>
+              <Text style={[styles.subscriptionDesc, { textAlign: isRTL ? 'right' : 'left' }]}>
+                {language === 'ar'
+                  ? 'أنت مشترك في الخطة المميزة. تتمتع بجميع المزايا.'
+                  : 'Sie haben ein Premium-Abonnement mit allen Vorteilen.'}
+              </Text>
+              <TouchableOpacity
+                style={[styles.subscribeButton, { backgroundColor: colors.error + '15' }]}
+                onPress={() => {
+                  Alert.alert(
+                    language === 'ar' ? 'إلغاء الاشتراك' : 'Abonnement kündigen',
+                    language === 'ar' ? 'هل أنت متأكد من إلغاء الاشتراك المميز؟' : 'Möchten Sie Ihr Premium-Abonnement wirklich kündigen?',
+                    [
+                      { text: t('cancel'), style: 'cancel' },
+                      { text: language === 'ar' ? 'إلغاء الاشتراك' : 'Kündigen', style: 'destructive', onPress: unsubscribe },
+                    ]
+                  );
+                }}
+              >
+                <Text style={[styles.subscribeButtonText, { color: colors.error }]}>
+                  {language === 'ar' ? 'إلغاء الاشتراك' : 'Abonnement kündigen'}
+                </Text>
+              </TouchableOpacity>
+            </>
+          )}
+        </View>
+      </View>
+
       {/* Links */}
       <View style={styles.menuSection}>
         {[
@@ -456,6 +527,87 @@ const styles = StyleSheet.create({
     fontSize: fontSize.sm,
     color: colors.primary,
     fontWeight: fontWeight.medium,
+  },
+  subscriptionCard: {
+    backgroundColor: colors.surface,
+    borderRadius: borderRadius.lg,
+    padding: spacing.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  subscriptionBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    borderRadius: borderRadius.full,
+    gap: 6,
+    marginBottom: spacing.md,
+  },
+  freeBadge: {
+    backgroundColor: colors.border,
+  },
+  premiumBadge: {
+    backgroundColor: '#C8A95120',
+  },
+  subscriptionBadgeText: {
+    fontSize: fontSize.sm,
+    fontWeight: fontWeight.semibold,
+    color: colors.textLight,
+  },
+  premiumBadgeText: {
+    color: '#C8A951',
+  },
+  subscriptionDesc: {
+    fontSize: fontSize.md,
+    color: colors.textSecondary,
+    lineHeight: 22,
+    marginBottom: spacing.md,
+  },
+  benefitsList: {
+    marginBottom: spacing.md,
+  },
+  benefitRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    marginBottom: spacing.sm,
+  },
+  benefitText: {
+    fontSize: fontSize.md,
+    color: colors.text,
+    flex: 1,
+  },
+  pricingRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'center',
+    marginBottom: spacing.md,
+  },
+  priceText: {
+    fontSize: 32,
+    fontWeight: fontWeight.extrabold,
+    color: colors.primary,
+  },
+  priceUnit: {
+    fontSize: fontSize.md,
+    color: colors.textLight,
+    marginLeft: 4,
+  },
+  subscribeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#C8A95120',
+    paddingVertical: spacing.md,
+    borderRadius: borderRadius.full,
+    gap: spacing.sm,
+  },
+  subscribeButtonText: {
+    fontSize: fontSize.md,
+    fontWeight: fontWeight.bold,
+    color: '#C8A951',
   },
   logoutButton: {
     flexDirection: 'row',
