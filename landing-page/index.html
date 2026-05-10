@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مستشارك الأسري في ألمانيا | Ihr Familienberater in Deutschland</title>
+  <meta name="description" content="استشارات قانونية متخصصة في القانون الأسري الألماني للعائلات العربية. Spezialisierte Rechtsberatung im deutschen Familienrecht." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <i class="fas fa-balance-scale"></i>
+        <span>مستشارك الأسري</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#features">خدماتنا</a>
+        <a href="#legal">الدليل القانوني</a>
+        <a href="#blog">المدونة</a>
+        <a href="#testimonials">آراء العملاء</a>
+        <a href="#contact">تواصل معنا</a>
+        <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">DE</button>
+      </div>
+      <button class="mobile-menu-btn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <i class="fas fa-shield-alt"></i>
+          <span id="heroBadge">استشارات قانونية موثوقة</span>
+        </div>
+        <h1 id="heroTitle">مستشارك الأسري<br/>في ألمانيا</h1>
+        <p id="heroSubtitle">استشارات قانونية متخصصة في القانون الأسري الألماني.<br/>نساعدك على فهم حقوقك وواجباتك والتعامل مع الجهات القانونية بثقة.</p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn btn-primary" id="heroCta1">
+            <i class="fas fa-comments"></i>
+            استشارة مجانية
+          </a>
+          <a href="#features" class="btn btn-outline" id="heroCta2">
+            <i class="fas fa-book-open"></i>
+            الدليل القانوني
+          </a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-avatars">
+            <div class="trust-avatar" style="background:#3B82F6">A</div>
+            <div class="trust-avatar" style="background:#10B981">S</div>
+            <div class="trust-avatar" style="background:#F59E0B">M</div>
+            <div class="trust-avatar" style="background:#8B5CF6">K</div>
+          </div>
+          <span id="heroTrust">+5,000 عميل يثق بنا</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <i class="fas fa-balance-scale"></i>
+              <span>مستشارك الأسري</span>
+            </div>
+            <div class="phone-card">
+              <i class="fas fa-shield-alt" style="color:#3B82F6"></i>
+              <div>
+                <strong>التعامل مع الشرطة</strong>
+                <small>حقوقك وواجباتك</small>
+              </div>
+            </div>
+            <div class="phone-card">
+              <i class="fas fa-users" style="color:#10B981"></i>
+              <div>
+                <strong>Jugendamt</strong>
+                <small>دليل شامل</small>
+              </div>
+            </div>
+            <div class="phone-card">
+              <i class="fas fa-money-bill-wave" style="color:#F59E0B"></i>
+              <div>
+                <strong>تجنب الغرامات</strong>
+                <small>نصائح عملية</small>
+              </div>
+            </div>
+            <div class="phone-card">
+              <i class="fas fa-briefcase" style="color:#8B5CF6"></i>
+              <div>
+                <strong>النيابة العامة</strong>
+                <small>حقوقك القانونية</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat-item">
+        <div class="stat-icon" style="background:rgba(59,130,246,0.1)">
+          <i class="fas fa-users" style="color:#3B82F6"></i>
+        </div>
+        <div class="stat-number">5,000+</div>
+        <div class="stat-label" id="stat1">عميل استفاد</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon" style="background:rgba(16,185,129,0.1)">
+          <i class="fas fa-comments" style="color:#10B981"></i>
+        </div>
+        <div class="stat-number">12,000+</div>
+        <div class="stat-label" id="stat2">استشارة قانونية</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon" style="background:rgba(245,158,11,0.1)">
+          <i class="fas fa-file-alt" style="color:#F59E0B"></i>
+        </div>
+        <div class="stat-number">200+</div>
+        <div class="stat-label" id="stat3">مقال قانوني</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon" style="background:rgba(139,92,246,0.1)">
+          <i class="fas fa-user-tie" style="color:#8B5CF6"></i>
+        </div>
+        <div class="stat-number">25+</div>
+        <div class="stat-label" id="stat4">محامي متخصص</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge" id="featuresBadge">خدماتنا</span>
+        <h2 id="featuresTitle">كيف نساعدك؟</h2>
+        <p id="featuresSubtitle">نقدم لك مجموعة شاملة من الخدمات القانونية المتخصصة في القانون الأسري الألماني</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon" style="background:rgba(59,130,246,0.1)">
+            <i class="fas fa-shield-alt" style="color:#3B82F6"></i>
+          </div>
+          <h3 id="f1Title">التعامل مع الشرطة</h3>
+          <p id="f1Desc">دليل شامل لحقوقك عند التعامل مع الشرطة الألمانية وكيفية التصرف في المواقف المختلفة</p>
+          <a href="#" class="feature-link" id="f1Link">اعرف المزيد <i class="fas fa-arrow-left"></i></a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background:rgba(16,185,129,0.1)">
+            <i class="fas fa-child" style="color:#10B981"></i>
+          </div>
+          <h3 id="f2Title">Jugendamt - رعاية الشباب</h3>
+          <p id="f2Desc">كيفية التعامل مع مكتب رعاية الشباب وحماية حقوقك وحقوق أطفالك</p>
+          <a href="#" class="feature-link" id="f2Link">اعرف المزيد <i class="fas fa-arrow-left"></i></a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background:rgba(245,158,11,0.1)">
+            <i class="fas fa-money-bill-wave" style="color:#F59E0B"></i>
+          </div>
+          <h3 id="f3Title">تجنب الغرامات</h3>
+          <p id="f3Desc">إرشادات عملية لتجنب المخالفات والغرامات المالية في ألمانيا</p>
+          <a href="#" class="feature-link" id="f3Link">اعرف المزيد <i class="fas fa-arrow-left"></i></a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background:rgba(139,92,246,0.1)">
+            <i class="fas fa-gavel" style="color:#8B5CF6"></i>
+          </div>
+          <h3 id="f4Title">النيابة العامة</h3>
+          <p id="f4Desc">حقوقك وكيفية التعامل مع إجراءات النيابة العامة والمحاكم</p>
+          <a href="#" class="feature-link" id="f4Link">اعرف المزيد <i class="fas fa-arrow-left"></i></a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background:rgba(236,72,153,0.1)">
+            <i class="fas fa-heart" style="color:#EC4899"></i>
+          </div>
+          <h3 id="f5Title">الزواج والطلاق</h3>
+          <p id="f5Desc">الإجراءات القانونية للزواج والطلاق وتقسيم الممتلكات والنفقة</p>
+          <a href="#" class="feature-link" id="f5Link">اعرف المزيد <i class="fas fa-arrow-left"></i></a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background:rgba(6,182,212,0.1)">
+            <i class="fas fa-baby" style="color:#06B6D4"></i>
+          </div>
+          <h3 id="f6Title">حضانة الأطفال</h3>
+          <p id="f6Desc">أنواع الحضانة وحقوق الوالدين والإجراءات القانونية المتعلقة بالأطفال</p>
+          <a href="#" class="feature-link" id="f6Link">اعرف المزيد <i class="fas fa-arrow-left"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal Guide Section -->
+  <section class="legal-guide" id="legal">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge" id="legalBadge">الدليل القانوني</span>
+        <h2 id="legalTitle">معلومات قانونية موثوقة</h2>
+        <p id="legalSubtitle">محتوى قانوني شامل ومبسط لمساعدتك على فهم حقوقك</p>
+      </div>
+      <div class="legal-cards">
+        <div class="legal-card">
+          <div class="legal-card-header" style="background: linear-gradient(135deg, #1B4D3E, #2A7A5F)">
+            <i class="fas fa-book"></i>
+            <h3 id="lg1Title">مقالات قانونية</h3>
+          </div>
+          <p id="lg1Desc">أكثر من 200 مقال قانوني مبسط يغطي جميع جوانب القانون الأسري الألماني</p>
+          <ul>
+            <li id="lg1Item1">حقوق الأطفال في القانون الألماني</li>
+            <li id="lg1Item2">إجراءات الطلاق خطوة بخطوة</li>
+            <li id="lg1Item3">التعامل مع العنف الأسري</li>
+          </ul>
+        </div>
+        <div class="legal-card">
+          <div class="legal-card-header" style="background: linear-gradient(135deg, #3B82F6, #60A5FA)">
+            <i class="fas fa-question-circle"></i>
+            <h3 id="lg2Title">أسئلة متكررة</h3>
+          </div>
+          <p id="lg2Desc">إجابات واضحة ومباشرة على أكثر الأسئلة القانونية شيوعاً</p>
+          <ul>
+            <li id="lg2Item1">كيف أحصل على حضانة أطفالي؟</li>
+            <li id="lg2Item2">ما هي حقوقي أمام الـ Jugendamt؟</li>
+            <li id="lg2Item3">كيف أعترض على غرامة مالية؟</li>
+          </ul>
+        </div>
+        <div class="legal-card">
+          <div class="legal-card-header" style="background: linear-gradient(135deg, #F59E0B, #FBBF24)">
+            <i class="fas fa-file-download"></i>
+            <h3 id="lg3Title">نماذج قانونية</h3>
+          </div>
+          <p id="lg3Desc">نماذج ومستندات قانونية جاهزة للتحميل والاستخدام</p>
+          <ul>
+            <li id="lg3Item1">نموذج اعتراض على غرامة</li>
+            <li id="lg3Item2">نموذج شكوى رسمية</li>
+            <li id="lg3Item3">نموذج طلب حضانة</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Download Section -->
+  <section class="app-download" id="app">
+    <div class="container app-download-content">
+      <div class="app-info">
+        <span class="section-badge" id="appBadge">التطبيق</span>
+        <h2 id="appTitle">حمّل التطبيق الآن</h2>
+        <p id="appSubtitle">احصل على جميع الخدمات القانونية في جيبك. التطبيق متاح لأجهزة Android و iOS.</p>
+        <div class="app-features-list">
+          <div class="app-feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span id="appF1">وصول دون اتصال للمحتوى القانوني</span>
+          </div>
+          <div class="app-feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span id="appF2">إشعارات فورية للتحديثات والمواعيد</span>
+          </div>
+          <div class="app-feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span id="appF3">واجهة سهلة بالعربية والألمانية</span>
+          </div>
+          <div class="app-feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span id="appF4">حجز استشارات مباشرة من التطبيق</span>
+          </div>
+        </div>
+        <div class="store-buttons">
+          <a href="#" class="store-btn">
+            <i class="fab fa-google-play"></i>
+            <div>
+              <small>GET IT ON</small>
+              <strong>Google Play</strong>
+            </div>
+          </a>
+          <a href="#" class="store-btn">
+            <i class="fab fa-apple"></i>
+            <div>
+              <small>Download on the</small>
+              <strong>App Store</strong>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="app-visual">
+        <div class="phone-mockup large">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <i class="fas fa-balance-scale"></i>
+              <span>مستشارك الأسري</span>
+            </div>
+            <div class="phone-hero-section">
+              <h4>مرحباً بك</h4>
+              <p>احصل على استشارة قانونية الآن</p>
+              <div class="phone-btn">ابدأ الآن</div>
+            </div>
+            <div class="phone-card">
+              <i class="fas fa-calendar-check" style="color:#10B981"></i>
+              <div>
+                <strong>موعدك القادم</strong>
+                <small>الخميس 15 مايو - 14:00</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="blog" id="blog">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge" id="blogBadge">المدونة</span>
+        <h2 id="blogTitle">أحدث المقالات القانونية</h2>
+        <p id="blogSubtitle">مقالات وتحليلات قانونية متخصصة لمساعدتك</p>
+      </div>
+      <div class="blog-grid">
+        <article class="blog-card">
+          <div class="blog-image" style="background:linear-gradient(135deg,#1B4D3E20,#2A7A5F20)">
+            <i class="fas fa-users" style="color:#1B4D3E;font-size:40px"></i>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <span class="blog-category" id="b1Cat">قانون الأسرة</span>
+              <span class="blog-date">1 مايو 2025</span>
+            </div>
+            <h3 id="b1Title">حقوق الأطفال في القانون الألماني</h3>
+            <p id="b1Desc">نظرة شاملة على حقوق الأطفال في ألمانيا وكيف يحميها القانون الألماني.</p>
+            <a href="#" class="blog-link" id="b1Link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-image" style="background:linear-gradient(135deg,#3B82F620,#60A5FA20)">
+            <i class="fas fa-file-contract" style="color:#3B82F6;font-size:40px"></i>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <span class="blog-category" id="b2Cat">الطلاق</span>
+              <span class="blog-date">25 أبريل 2025</span>
+            </div>
+            <h3 id="b2Title">الطلاق في ألمانيا: الإجراءات والحقوق</h3>
+            <p id="b2Desc">دليل شامل لإجراءات الطلاق في ألمانيا والحقوق القانونية لكلا الطرفين.</p>
+            <a href="#" class="blog-link" id="b2Link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-image" style="background:linear-gradient(135deg,#F59E0B20,#FBBF2420)">
+            <i class="fas fa-money-bill-wave" style="color:#F59E0B;font-size:40px"></i>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <span class="blog-category" id="b3Cat">الغرامات</span>
+              <span class="blog-date">18 أبريل 2025</span>
+            </div>
+            <h3 id="b3Title">كيف تحمي نفسك من الغرامات</h3>
+            <p id="b3Desc">نصائح عملية لتجنب الغرامات المالية الأكثر شيوعاً في ألمانيا.</p>
+            <a href="#" class="blog-link" id="b3Link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge" id="testBadge">آراء العملاء</span>
+        <h2 id="testTitle">ماذا يقول عملاؤنا؟</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p id="t1Text">"ساعدني التطبيق في فهم حقوقي مع الـ Jugendamt وحل مشكلتي بطريقة قانونية صحيحة. أنصح الجميع بتحميله."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#3B82F6">أ</div>
+            <div>
+              <strong id="t1Name">أحمد م.</strong>
+              <small id="t1Role">أب لطفلين - برلين</small>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p id="t2Text">"استشارة قانونية ممتازة ساعدتني في تجنب غرامة كبيرة. شكراً لفريق المستشارين على الدعم المتواصل."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#10B981">س</div>
+            <div>
+              <strong id="t2Name">سارة ك.</strong>
+              <small id="t2Role">مقيمة في ميونخ</small>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p id="t3Text">"التطبيق سهل الاستخدام ويحتوي على معلومات قيمة جداً لكل مقيم في ألمانيا. محتوى موثوق ومفيد."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:#F59E0B">م</div>
+            <div>
+              <strong id="t3Name">محمد ع.</strong>
+              <small id="t3Role">مهندس - هامبورغ</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Consultation CTA Section -->
+  <section class="consultation-cta" id="contact">
+    <div class="container">
+      <div class="cta-wrapper">
+        <div class="cta-content">
+          <h2 id="ctaTitle">هل تحتاج مساعدة قانونية؟</h2>
+          <p id="ctaSubtitle">احجز استشارتك المجانية الأولى الآن وتحدث مع محامٍ متخصص في القانون الأسري الألماني</p>
+          <div class="cta-features">
+            <div class="cta-feature">
+              <i class="fas fa-check"></i>
+              <span id="ctaF1">استشارة أولية مجانية لمدة 15 دقيقة</span>
+            </div>
+            <div class="cta-feature">
+              <i class="fas fa-check"></i>
+              <span id="ctaF2">محامون متخصصون في القانون الأسري</span>
+            </div>
+            <div class="cta-feature">
+              <i class="fas fa-check"></i>
+              <span id="ctaF3">سرية تامة وحماية بياناتك</span>
+            </div>
+          </div>
+        </div>
+        <div class="cta-form">
+          <h3 id="ctaFormTitle">احجز استشارتك الآن</h3>
+          <form id="consultationForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <input type="text" placeholder="الاسم الأول *" required id="formFirstName" />
+              <input type="text" placeholder="اسم العائلة" id="formLastName" />
+            </div>
+            <input type="email" placeholder="البريد الإلكتروني *" required id="formEmail" />
+            <input type="tel" placeholder="رقم الهاتف (+49...)" id="formPhone" />
+            <select id="formTopic">
+              <option value="" id="formTopicDefault">اختر الموضوع *</option>
+              <option value="family" id="formOpt1">قانون الأسرة</option>
+              <option value="child" id="formOpt2">حماية الطفل</option>
+              <option value="divorce" id="formOpt3">الطلاق والانفصال</option>
+              <option value="custody" id="formOpt4">حضانة الأطفال</option>
+              <option value="violence" id="formOpt5">العنف الأسري</option>
+              <option value="other" id="formOpt6">موضوع آخر</option>
+            </select>
+            <textarea placeholder="وصف موجز لمشكلتك..." rows="4" id="formDesc"></textarea>
+            <button type="submit" class="btn btn-primary btn-full" id="formSubmit">
+              <i class="fas fa-paper-plane"></i>
+              إرسال الطلب
+            </button>
+          </form>
+          <div class="form-success" id="formSuccess" style="display:none">
+            <i class="fas fa-check-circle"></i>
+            <h4 id="successTitle">تم الإرسال بنجاح!</h4>
+            <p id="successMsg">سنتواصل معك خلال 24 ساعة. شكراً لثقتك.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <i class="fas fa-balance-scale"></i>
+            <span>مستشارك الأسري</span>
+          </a>
+          <p id="footerDesc">منصة قانونية متخصصة لتقديم استشارات في القانون الأسري الألماني للعائلات العربية في ألمانيا.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links-group">
+          <h4 id="footerNav">روابط سريعة</h4>
+          <a href="#features" id="footerLink1">خدماتنا</a>
+          <a href="#legal" id="footerLink2">الدليل القانوني</a>
+          <a href="#blog" id="footerLink3">المدونة</a>
+          <a href="#contact" id="footerLink4">حجز استشارة</a>
+        </div>
+        <div class="footer-links-group">
+          <h4 id="footerLegal">قانوني</h4>
+          <a href="#" id="footerPrivacy">سياسة الخصوصية</a>
+          <a href="#" id="footerTerms">شروط الاستخدام</a>
+          <a href="#" id="footerImprint">البصمة القانونية (Impressum)</a>
+          <a href="#" id="footerGdpr">حماية البيانات (DSGVO)</a>
+        </div>
+        <div class="footer-links-group">
+          <h4 id="footerContact">تواصل معنا</h4>
+          <a href="mailto:info@familienberater.de"><i class="fas fa-envelope"></i> info@familienberater.de</a>
+          <a href="tel:+4930123456789"><i class="fas fa-phone"></i> +49 30 1234 56789</a>
+          <a href="#"><i class="fas fa-map-marker-alt"></i> Berlin, Deutschland</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 مستشارك الأسري | Familienberater. <span id="footerRights">جميع الحقوق محفوظة.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
