@@ -10,6 +10,7 @@ interface FeatureCardProps {
   description: string;
   color: string;
   onPress: () => void;
+  premium?: boolean;
 }
 
 export const FeatureCard: React.FC<FeatureCardProps> = ({
@@ -18,6 +19,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
   description,
   color,
   onPress,
+  premium,
 }) => {
   const { isRTL } = useLanguage();
 
@@ -27,7 +29,14 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
         <Ionicons name={icon as any} size={28} color={color} />
       </View>
       <View style={styles.textContainer}>
-        <Text style={[styles.title, { textAlign: isRTL ? 'right' : 'left' }]}>{title}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+          <Text style={[styles.title, { textAlign: isRTL ? 'right' : 'left', flex: 1 }]}>{title}</Text>
+          {premium && (
+            <View style={{ backgroundColor: '#C8A951', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 10 }}>
+              <Text style={{ color: '#fff', fontSize: 10, fontWeight: '700' }}>Premium</Text>
+            </View>
+          )}
+        </View>
         <Text style={[styles.description, { textAlign: isRTL ? 'right' : 'left' }]}>
           {description}
         </Text>

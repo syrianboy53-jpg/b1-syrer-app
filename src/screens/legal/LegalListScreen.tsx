@@ -43,25 +43,50 @@ export const LegalListScreen: React.FC<{ navigation: any }> = ({ navigation }) =
 
   const additionalTopics = [
     {
-      icon: 'heart',
-      title: language === 'ar' ? 'الزواج والطلاق' : 'Ehe und Scheidung',
-      desc: language === 'ar' ? 'الإجراءات القانونية للزواج والطلاق في ألمانيا' : 'Rechtliche Verfahren für Ehe und Scheidung',
-      color: '#EC4899',
-      screen: 'PoliceScreen',
+      icon: 'mail',
+      title: language === 'ar' ? 'بريد الشرطة' : 'Post von der Polizei',
+      desc: language === 'ar' ? 'كيف تتعامل مع رسائل واستدعاءات الشرطة' : 'Umgang mit Polizeipost und Vorladungen',
+      color: '#2563EB',
+      screen: 'PoliceMailScreen',
+    },
+    {
+      icon: 'alert-circle',
+      title: language === 'ar' ? 'الادعاءات الكيدية' : 'Falschbeschuldigungen',
+      desc: language === 'ar' ? 'حماية نفسك من الاتهامات الباطلة' : 'Schutz vor falschen Anschuldigungen',
+      color: '#DC2626',
+      screen: 'FalseAccusationsScreen',
+      premium: true,
+    },
+    {
+      icon: 'hand-left',
+      title: language === 'ar' ? 'تجنب سحب الأطفال' : 'Inobhutnahme vermeiden',
+      desc: language === 'ar' ? 'دليل وقائي لحماية عائلتك' : 'Präventionsleitfaden zum Schutz Ihrer Familie',
+      color: '#059669',
+      screen: 'ChildRemovalScreen',
+      premium: true,
     },
     {
       icon: 'home',
-      title: language === 'ar' ? 'حقوق السكن' : 'Wohnrechte',
-      desc: language === 'ar' ? 'حقوقك كمستأجر والتعامل مع المؤجرين' : 'Ihre Rechte als Mieter',
-      color: '#06B6D4',
-      screen: 'PoliceScreen',
+      title: language === 'ar' ? 'Frauenhaus - دار حماية المرأة' : 'Frauenhaus',
+      desc: language === 'ar' ? 'كل ما تحتاج معرفته عن دور حماية المرأة' : 'Alles über Frauenhäuser in Deutschland',
+      color: '#DB2777',
+      screen: 'FrauenhausScreen',
     },
     {
-      icon: 'school',
-      title: language === 'ar' ? 'التعليم والمدارس' : 'Bildung und Schulen',
-      desc: language === 'ar' ? 'حقوق أطفالك في النظام التعليمي الألماني' : 'Die Rechte Ihrer Kinder im Bildungssystem',
-      color: '#14B8A6',
-      screen: 'PoliceScreen',
+      icon: 'heart-half',
+      title: language === 'ar' ? 'قبل أن تصل إلى الطلاق' : 'Bevor es zur Scheidung kommt',
+      desc: language === 'ar' ? 'خطوات لإنقاذ الزواج أو الاستعداد القانوني' : 'Schritte zur Rettung der Ehe oder Vorbereitung',
+      color: '#7C3AED',
+      screen: 'BeforeDivorceScreen',
+      premium: true,
+    },
+    {
+      icon: 'document-text',
+      title: language === 'ar' ? 'بعد الطلاق في ألمانيا' : 'Nach der Scheidung',
+      desc: language === 'ar' ? 'حقوقك وواجباتك بعد إتمام الطلاق' : 'Ihre Rechte und Pflichten nach der Scheidung',
+      color: '#0891B2',
+      screen: 'AfterDivorceScreen',
+      premium: true,
     },
   ];
 
@@ -99,6 +124,7 @@ export const LegalListScreen: React.FC<{ navigation: any }> = ({ navigation }) =
             title={topic.title}
             description={topic.desc}
             color={topic.color}
+            premium={(topic as any).premium}
             onPress={() => navigation.navigate(topic.screen)}
           />
         ))}
