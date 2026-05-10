@@ -11,7 +11,14 @@ import { PoliceScreen } from '../screens/legal/PoliceScreen';
 import { JugendamtScreen } from '../screens/legal/JugendamtScreen';
 import { FinesScreen } from '../screens/legal/FinesScreen';
 import { ProsecutorScreen } from '../screens/legal/ProsecutorScreen';
+import { PoliceMailScreen } from '../screens/legal/PoliceMailScreen';
+import { FalseAccusationsScreen } from '../screens/legal/FalseAccusationsScreen';
+import { ChildRemovalScreen } from '../screens/legal/ChildRemovalScreen';
+import { FrauenhausScreen } from '../screens/legal/FrauenhausScreen';
+import { BeforeDivorceScreen } from '../screens/legal/BeforeDivorceScreen';
+import { AfterDivorceScreen } from '../screens/legal/AfterDivorceScreen';
 import { ConsultationScreen } from '../screens/consultation/ConsultationScreen';
+import { ChatConsultationScreen } from '../screens/consultation/ChatConsultationScreen';
 import { BlogScreen } from '../screens/blog/BlogScreen';
 import { BlogDetailScreen } from '../screens/blog/BlogDetailScreen';
 import { ProfileScreen } from '../screens/profile/ProfileScreen';
@@ -19,35 +26,40 @@ import { ProfileScreen } from '../screens/profile/ProfileScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+const headerOptions = (title: string) => ({
+  headerShown: true,
+  title,
+  headerStyle: { backgroundColor: colors.primary },
+  headerTintColor: '#fff',
+});
+
 const LegalStack = () => {
   const { language } = useLanguage();
+  const isAr = language === 'ar';
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="LegalList" component={LegalListScreen} />
-      <Stack.Screen
-        name="PoliceScreen"
-        component={PoliceScreen}
-        options={{ headerShown: true, title: language === 'ar' ? 'الشرطة' : 'Polizei', headerStyle: { backgroundColor: colors.primary }, headerTintColor: '#fff' }}
-      />
-      <Stack.Screen
-        name="JugendamtScreen"
-        component={JugendamtScreen}
-        options={{ headerShown: true, title: 'Jugendamt', headerStyle: { backgroundColor: colors.primary }, headerTintColor: '#fff' }}
-      />
-      <Stack.Screen
-        name="FinesScreen"
-        component={FinesScreen}
-        options={{ headerShown: true, title: language === 'ar' ? 'الغرامات' : 'Bußgelder', headerStyle: { backgroundColor: colors.primary }, headerTintColor: '#fff' }}
-      />
-      <Stack.Screen
-        name="ProsecutorScreen"
-        component={ProsecutorScreen}
-        options={{ headerShown: true, title: language === 'ar' ? 'النيابة العامة' : 'Staatsanwaltschaft', headerStyle: { backgroundColor: colors.primary }, headerTintColor: '#fff' }}
-      />
+      <Stack.Screen name="PoliceScreen" component={PoliceScreen} options={headerOptions(isAr ? 'الشرطة' : 'Polizei')} />
+      <Stack.Screen name="JugendamtScreen" component={JugendamtScreen} options={headerOptions('Jugendamt')} />
+      <Stack.Screen name="FinesScreen" component={FinesScreen} options={headerOptions(isAr ? 'الغرامات' : 'Bußgelder')} />
+      <Stack.Screen name="ProsecutorScreen" component={ProsecutorScreen} options={headerOptions(isAr ? 'النيابة العامة' : 'Staatsanwaltschaft')} />
+      <Stack.Screen name="PoliceMailScreen" component={PoliceMailScreen} options={headerOptions(isAr ? 'بريد الشرطة' : 'Polizeipost')} />
+      <Stack.Screen name="FalseAccusationsScreen" component={FalseAccusationsScreen} options={headerOptions(isAr ? 'الادعاءات الكيدية' : 'Falschbeschuldigungen')} />
+      <Stack.Screen name="ChildRemovalScreen" component={ChildRemovalScreen} options={headerOptions(isAr ? 'سحب الأطفال' : 'Inobhutnahme')} />
+      <Stack.Screen name="FrauenhausScreen" component={FrauenhausScreen} options={headerOptions('Frauenhaus')} />
+      <Stack.Screen name="BeforeDivorceScreen" component={BeforeDivorceScreen} options={headerOptions(isAr ? 'قبل الطلاق' : 'Vor der Scheidung')} />
+      <Stack.Screen name="AfterDivorceScreen" component={AfterDivorceScreen} options={headerOptions(isAr ? 'بعد الطلاق' : 'Nach der Scheidung')} />
+    </Stack.Navigator>
+  );
+};
+
+const ConsultationStack = () => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="ConsultationMain" component={ConsultationScreen} />
+      <Stack.Screen name="ChatConsultation" component={ChatConsultationScreen} options={headerOptions(isAr ? 'استشارة خاصة' : 'Private Beratung')} />
     </Stack.Navigator>
   );
 };
@@ -60,7 +72,7 @@ const BlogStack = () => {
       <Stack.Screen
         name="BlogDetail"
         component={BlogDetailScreen}
-        options={{ headerShown: true, title: language === 'ar' ? 'المقال' : 'Artikel', headerStyle: { backgroundColor: colors.primary }, headerTintColor: '#fff' }}
+        options={headerOptions(language === 'ar' ? 'المقال' : 'Artikel')}
       />
     </Stack.Navigator>
   );
@@ -128,7 +140,7 @@ export const AppNavigator = () => {
       />
       <Tab.Screen
         name="ConsultationTab"
-        component={ConsultationScreen}
+        component={ConsultationStack}
         options={{ tabBarLabel: t('consultation') }}
       />
       <Tab.Screen

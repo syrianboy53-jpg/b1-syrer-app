@@ -12,8 +12,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors, fontSize, fontWeight, spacing, borderRadius } from '../../utils/theme';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { GradientHeader } from '../../components/GradientHeader';
+import { AdBanner } from '../../components/AdBanner';
 
-export const ConsultationScreen: React.FC = () => {
+export const ConsultationScreen: React.FC<{ navigation?: any }> = ({ navigation }) => {
   const { t, isRTL, language } = useLanguage();
   const [formData, setFormData] = useState({
     firstName: '',
@@ -83,6 +84,28 @@ export const ConsultationScreen: React.FC = () => {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <GradientHeader title={t('consultationTitle')} subtitle={t('consultationSubtitle')} />
+
+      {/* Private Chat CTA */}
+      <TouchableOpacity
+        style={styles.chatCta}
+        onPress={() => navigation?.navigate?.('ChatConsultation')}
+        activeOpacity={0.8}
+      >
+        <View style={styles.chatCtaIcon}>
+          <Ionicons name="chatbubbles" size={28} color="#fff" />
+        </View>
+        <View style={styles.chatCtaContent}>
+          <Text style={[styles.chatCtaTitle, { textAlign: isRTL ? 'right' : 'left' }]}>
+            {language === 'ar' ? 'استشارة خاصة فورية' : 'Sofortige private Beratung'}
+          </Text>
+          <Text style={[styles.chatCtaDesc, { textAlign: isRTL ? 'right' : 'left' }]}>
+            {language === 'ar' ? 'محادثة سرية (صوت + نص) - 5€ / 30 دقيقة' : 'Vertraulicher Chat (Sprache + Text) - 5€ / 30 Min.'}
+          </Text>
+        </View>
+        <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={22} color="#fff" />
+      </TouchableOpacity>
+
+      <AdBanner />
 
       {/* Consultation Types */}
       <View style={styles.typeSection}>
@@ -265,6 +288,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  chatCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    margin: spacing.md,
+    padding: spacing.md,
+    borderRadius: borderRadius.lg,
+    gap: 12,
+  },
+  chatCtaIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  chatCtaContent: {
+    flex: 1,
+  },
+  chatCtaTitle: {
+    fontSize: fontSize.md,
+    fontWeight: fontWeight.bold as any,
+    color: '#fff',
+    marginBottom: 2,
+  },
+  chatCtaDesc: {
+    fontSize: fontSize.xs,
+    color: 'rgba(255,255,255,0.8)',
   },
   successContainer: {
     flex: 1,

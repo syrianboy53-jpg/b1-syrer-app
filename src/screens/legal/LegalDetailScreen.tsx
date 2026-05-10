@@ -11,6 +11,8 @@ import { colors, fontSize, fontWeight, spacing, borderRadius } from '../../utils
 import { useLanguage } from '../../i18n/LanguageContext';
 import { LegalArticle } from '../../data/legalContent';
 import { GradientHeader } from '../../components/GradientHeader';
+import { PremiumGate } from '../../components/PremiumGate';
+import { AdBanner } from '../../components/AdBanner';
 
 interface LegalDetailScreenProps {
   article: LegalArticle;
@@ -23,12 +25,28 @@ export const LegalDetailScreen: React.FC<LegalDetailScreenProps> = ({ article, n
 
   const title = language === 'ar' ? article.titleAr : article.titleDe;
   const subtitle = language === 'ar' ? article.subtitleAr : article.subtitleDe;
+
+  if (article.premium) {
+    return <PremiumGate><LegalDetailContent article={article} navigation={navigation} /></PremiumGate>;
+  }
+
+  return <LegalDetailContent article={article} navigation={navigation} />;
+};
+
+const LegalDetailContent: React.FC<LegalDetailScreenProps> = ({ article, navigation }) => {
+  const { language, isRTL, t } = useLanguage();
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+
+  const title = language === 'ar' ? article.titleAr : article.titleDe;
+  const subtitle = language === 'ar' ? article.subtitleAr : article.subtitleDe;
   const sections = article.sections;
   const faqs = language === 'ar' ? article.faqAr : article.faqDe;
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <GradientHeader title={title} subtitle={subtitle} />
+
+      <AdBanner />
 
       {/* Content Sections */}
       {sections.map((section, index) => {

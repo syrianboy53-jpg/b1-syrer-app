@@ -60,3 +60,11 @@ export const fontWeight = {
   bold: '700' as const,
   extrabold: '800' as const,
 };
+
+export const theme = {
+  colors,
+  spacing,
+  borderRadius,
+  fontSizes: fontSize,
+  fontWeights: fontWeight,
+};
