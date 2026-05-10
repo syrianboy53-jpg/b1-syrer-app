@@ -130,6 +130,45 @@ export const translations = {
     relatedTopics: 'مواضيع ذات صلة',
     downloadTemplate: 'تحميل نموذج',
     shareArticle: 'مشاركة المقال',
+
+    // New Features
+    feature5Title: 'بريد الشرطة',
+    feature5Desc: 'كيف تتعامل مع البريد الرسمي من الشرطة الألمانية',
+    feature6Title: 'الادعاءات الكيدية',
+    feature6Desc: 'حماية نفسك من الاتهامات الباطلة',
+    feature7Title: 'حماية الأطفال من السحب',
+    feature7Desc: 'دليل وقائي لحماية عائلتك من تدخل الـ Jugendamt',
+    feature8Title: 'Frauenhaus',
+    feature8Desc: 'كل ما تحتاج معرفته عن دور حماية المرأة',
+    feature9Title: 'قبل الطلاق',
+    feature9Desc: 'خطوات لإنقاذ الزواج أو الاستعداد القانوني',
+    feature10Title: 'بعد الطلاق',
+    feature10Desc: 'حقوقك وواجباتك بعد إتمام الطلاق',
+
+    // Subscription
+    subscriptionTitle: 'الاشتراك المميز',
+    subscriptionDesc: 'احصل على وصول كامل لجميع المحتويات القانونية',
+    currentPlan: 'الخطة الحالية',
+    freePlan: 'مجاني',
+    premiumPlan: 'مميز',
+    subscribNow: 'اشترك الآن',
+    manageSubscription: 'إدارة الاشتراك',
+    premiumFeatures: 'مميزات الاشتراك',
+    premiumBenefit1: 'الوصول لجميع المقالات القانونية',
+    premiumBenefit2: 'إزالة الإعلانات',
+    premiumBenefit3: 'محتوى حصري ومفصل',
+    premiumBenefit4: 'أولوية في الاستشارات',
+    perMonth: '/شهر',
+
+    // Chat Consultation
+    privateConsultation: 'استشارة خاصة',
+    privateConsultationDesc: 'تحدث مع مستشار قانوني متخصص عبر الدردشة',
+    chatNow: 'ابدأ المحادثة',
+
+    // New Topics Section
+    newTopicsTitle: 'مواضيع قانونية جديدة',
+    allTopics: 'جميع المواضيع',
+    premiumContent: 'محتوى مميز',
   },
   de: {
     // App
@@ -260,6 +299,45 @@ export const translations = {
     relatedTopics: 'Verwandte Themen',
     downloadTemplate: 'Vorlage herunterladen',
     shareArticle: 'Artikel teilen',
+
+    // New Features
+    feature5Title: 'Post von der Polizei',
+    feature5Desc: 'Umgang mit offizieller Post der deutschen Polizei',
+    feature6Title: 'Falschbeschuldigungen',
+    feature6Desc: 'Schutz vor falschen Anschuldigungen',
+    feature7Title: 'Kinder vor Inobhutnahme schützen',
+    feature7Desc: 'Präventionsleitfaden zum Schutz Ihrer Familie',
+    feature8Title: 'Frauenhaus',
+    feature8Desc: 'Alles über Frauenhäuser in Deutschland',
+    feature9Title: 'Vor der Scheidung',
+    feature9Desc: 'Schritte zur Rettung der Ehe oder rechtlichen Vorbereitung',
+    feature10Title: 'Nach der Scheidung',
+    feature10Desc: 'Ihre Rechte und Pflichten nach der Scheidung',
+
+    // Subscription
+    subscriptionTitle: 'Premium-Abonnement',
+    subscriptionDesc: 'Voller Zugang zu allen rechtlichen Inhalten',
+    currentPlan: 'Aktueller Plan',
+    freePlan: 'Kostenlos',
+    premiumPlan: 'Premium',
+    subscribNow: 'Jetzt abonnieren',
+    manageSubscription: 'Abonnement verwalten',
+    premiumFeatures: 'Premium-Vorteile',
+    premiumBenefit1: 'Zugang zu allen Rechtsartikeln',
+    premiumBenefit2: 'Keine Werbung',
+    premiumBenefit3: 'Exklusive und detaillierte Inhalte',
+    premiumBenefit4: 'Priorität bei Beratungen',
+    perMonth: '/Monat',
+
+    // Chat Consultation
+    privateConsultation: 'Private Beratung',
+    privateConsultationDesc: 'Sprechen Sie mit einem spezialisierten Rechtsberater per Chat',
+    chatNow: 'Chat starten',
+
+    // New Topics Section
+    newTopicsTitle: 'Neue Rechtsthemen',
+    allTopics: 'Alle Themen',
+    premiumContent: 'Premium-Inhalt',
   },
 };
 
