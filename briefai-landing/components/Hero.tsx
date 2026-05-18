@@ -38,6 +38,15 @@ export default function Hero() {
         <div className="flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-16">
           {/* Text Content */}
           <div className="flex-1 text-center lg:text-start">
+            <div className="mb-6 flex justify-center lg:justify-start animate-fade-in">
+              <Image
+                src="/images/logo.jpeg"
+                alt="BriefAI"
+                width={120}
+                height={120}
+                className="rounded-xl"
+              />
+            </div>
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-sm font-medium text-dark-600 animate-fade-in">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-500" />
               {t("hero.badge")}

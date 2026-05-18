@@ -13,7 +13,7 @@
     "langLabel": "DE"
   },
   "hero": {
-    "badge": "Pilot-Version – Made in Germany",
+    "badge": "Pilot-Version",
     "title": "Offizielle Briefe verstehen.",
     "titleHighlight": "Fristen erkennen. Richtig reagieren.",
     "subtitle": "BriefAI hilft Menschen in Deutschland, wichtige Briefe von Behörden, Jobcenter, Krankenkassen oder Versicherungen einfacher zu verstehen – mit Zusammenfassung, Fristenerkennung und klaren nächsten Schritten.",
@@ -23,7 +23,7 @@
     "trust_offline": "Offline zuerst",
     "trust_offline_desc": "Ihre Daten bleiben auf Ihrem Gerät",
     "trust_privacy": "Datenschutz im Fokus",
-    "trust_privacy_desc": "Made in Germany geplant"
+    "trust_privacy_desc": "Datenschutz geplant"
   },
   "problem": {
     "title": "Ein Brief kann alles verändern –",
