@@ -44,8 +44,8 @@ export default function Navigation() {
           <Image
             src="/images/logo.jpeg"
             alt="BriefAI"
-            width={48}
-            height={48}
+            width={56}
+            height={56}
             className="rounded-lg"
           />
           <span className="text-xl font-bold text-dark-900 sm:text-2xl">
