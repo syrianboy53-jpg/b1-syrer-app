@@ -8,9 +8,10 @@ interface PilotRegistration {
   id: string
   name: string
   email: string
-  language: string
-  message?: string
+  phone: string
+  reason: string
   createdAt: string
+  status: "pending" | "contacted" | "accepted" | "rejected"
 }
 
 export default function PilotPage() {

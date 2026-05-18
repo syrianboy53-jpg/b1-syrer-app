@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
+import Image from "next/image";
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -14,6 +15,17 @@ export default function Hero() {
 
       <div className="container-custom relative px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
+          <div className="mb-8 flex justify-center animate-fade-in">
+            <Image
+              src="/images/logo.jpeg"
+              alt="BriefAI Logo"
+              width={120}
+              height={120}
+              className="rounded-2xl"
+              priority
+            />
+          </div>
+
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary-100 px-4 py-2 text-sm font-medium text-primary-700 animate-fade-in">
             <span className="inline-block h-2 w-2 rounded-full bg-primary-500" />
             {t("hero.badge")}
@@ -39,40 +51,29 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="mx-auto mt-16 max-w-3xl animate-fade-in-up">
-          <div className="relative rounded-2xl border border-dark-100 bg-white p-4 shadow-2xl sm:p-8">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="h-3 w-3 rounded-full bg-red-400" />
-              <div className="h-3 w-3 rounded-full bg-yellow-400" />
-              <div className="h-3 w-3 rounded-full bg-green-400" />
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-primary-100 text-xl">
-                  📄
-                </div>
-                <div className="flex-1">
-                  <div className="mb-2 h-4 w-3/4 rounded bg-dark-100" />
-                  <div className="mb-2 h-3 w-full rounded bg-dark-50" />
-                  <div className="h-3 w-2/3 rounded bg-dark-50" />
-                </div>
-              </div>
-              <div className="border-t border-dark-100 pt-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
-                    KI-Analyse
-                  </span>
-                  <span className="rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-700">
-                    Frist: 14 Tage
-                  </span>
-                </div>
-                <div className="rounded-lg bg-primary-50 p-3">
-                  <div className="mb-1 h-3 w-1/2 rounded bg-primary-200" />
-                  <div className="h-3 w-3/4 rounded bg-primary-100" />
-                </div>
-              </div>
-            </div>
+        <div className="mx-auto mt-16 max-w-4xl animate-fade-in-up">
+          <div className="relative overflow-hidden rounded-2xl border border-dark-100 bg-white shadow-2xl">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full"
+              poster="/images/app-home.jpeg"
+            >
+              <source src="/videos/briefai-intro.mp4" type="video/mp4" />
+            </video>
           </div>
+        </div>
+
+        <div className="mx-auto mt-12 max-w-sm animate-fade-in-up">
+          <Image
+            src="/images/app-home.jpeg"
+            alt={t("hero.mockup_alt")}
+            width={400}
+            height={800}
+            className="mx-auto rounded-[2rem] shadow-2xl"
+          />
         </div>
       </div>
     </section>

@@ -8,6 +8,7 @@ import Features from "@/components/Features";
 import Trust from "@/components/Trust";
 import Pilot from "@/components/Pilot";
 import FAQ from "@/components/FAQ";
+import Feedback from "@/components/Feedback";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       <Trust />
       <Pilot />
       <FAQ />
+      <Feedback />
       <Footer />
     </main>
   );

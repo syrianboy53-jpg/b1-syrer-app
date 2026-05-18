@@ -1,6 +1,13 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
+import Image from "next/image";
+
+const stepImages = [
+  null,
+  "/images/analyse-ergebnis.jpeg",
+  "/images/zusammenfassung.jpeg",
+];
 
 export default function Solution() {
   const { t } = useTranslation();
@@ -21,14 +28,14 @@ export default function Solution() {
           <p className="text-lg text-dark-500">{t("solution.subtitle")}</p>
         </div>
 
-        <div className="relative mx-auto max-w-4xl">
+        <div className="relative mx-auto max-w-5xl">
           <div className="absolute left-8 top-0 hidden h-full w-0.5 bg-primary-200 md:left-1/2 md:block" />
 
-          <div className="space-y-12">
+          <div className="space-y-16">
             {steps.map((step, index) => (
               <div
                 key={index}
-                className={`relative flex flex-col gap-6 md:flex-row md:items-center ${
+                className={`relative flex flex-col gap-8 md:flex-row md:items-center ${
                   index % 2 === 1 ? "md:flex-row-reverse" : ""
                 }`}
               >
@@ -48,7 +55,19 @@ export default function Solution() {
 
                 <div className="hidden h-4 w-4 flex-shrink-0 rounded-full border-4 border-primary-600 bg-white md:block" />
 
-                <div className="hidden flex-1 md:block" />
+                <div className="flex flex-1 justify-center">
+                  {stepImages[index] ? (
+                    <Image
+                      src={stepImages[index]}
+                      alt={step.title}
+                      width={280}
+                      height={500}
+                      className="rounded-[1.5rem] shadow-xl"
+                    />
+                  ) : (
+                    <div className="hidden md:block" />
+                  )}
+                </div>
               </div>
             ))}
           </div>

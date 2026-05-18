@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navigation() {
   const { t, i18n } = useTranslation();
@@ -29,6 +30,7 @@ export default function Navigation() {
     { href: "#trust", label: t("nav.trust") },
     { href: "#pilot", label: t("nav.pilot") },
     { href: "#faq", label: t("nav.faq") },
+    { href: "#feedback", label: t("nav.feedback") },
   ];
 
   return (
@@ -40,8 +42,17 @@ export default function Navigation() {
       }`}
     >
       <div className="container-custom flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-2xl font-bold text-primary-600">
-          Brief<span className="text-dark-900">AI</span>
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/images/logo.jpeg"
+            alt="BriefAI"
+            width={36}
+            height={36}
+            className="rounded-lg"
+          />
+          <span className="text-2xl font-bold text-primary-600">
+            Brief<span className="text-dark-900">AI</span>
+          </span>
         </Link>
 
         <div className="hidden items-center gap-6 lg:flex">

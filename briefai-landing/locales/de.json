@@ -6,6 +6,7 @@
     "trust": "Vertrauen",
     "pilot": "Pilot-Programm",
     "faq": "FAQ",
+    "feedback": "Feedback",
     "contact": "Kontakt",
     "switchLang": "العربية",
     "admin": "Admin"
@@ -170,6 +171,51 @@
         "answer": "Nein! BriefAI ist so einfach wie ein Foto machen. Die App führt Sie Schritt für Schritt durch den Prozess."
       }
     ]
+  },
+  "feedback": {
+    "title": "Ihr Feedback",
+    "subtitle": "Ihre Meinung hilft uns, BriefAI besser zu machen",
+    "questions": {
+      "q1": {
+        "label": "Haben Sie sofort verstanden, wofür die App gedacht ist?",
+        "options": ["Ja, sehr klar", "Teilweise", "Nein"]
+      },
+      "q2": {
+        "label": "Welche Funktion finden Sie am wichtigsten?",
+        "options": ["Briefe zusammenfassen", "Fristen und Termine erkennen", "Nächste Schritte anzeigen", "Briefe automatisch sortieren", "Andere"]
+      },
+      "q3": {
+        "label": "War die Erklärung der App einfach und verständlich?",
+        "options": ["Ja", "Teilweise", "Nein"]
+      },
+      "q4": {
+        "label": "Würden Sie BriefAI bei echten Briefen nutzen?",
+        "options": ["Ja", "Vielleicht", "Nein"]
+      },
+      "q5": {
+        "label": "Würden Sie BriefAI einer anderen Person empfehlen?",
+        "options": ["Ja", "Vielleicht", "Nein"]
+      },
+      "q6": {
+        "label": "Was würde Ihnen mehr Vertrauen in die App geben?",
+        "options": ["Offline-Funktion", "Klare Datenschutzerklärung", "Empfehlung von Beratungsstellen", "Einfache Erklärung in meiner Sprache", "Andere"]
+      },
+      "q7": {
+        "label": "Was sollten wir verbessern?",
+        "placeholder": "Ihre Antwort..."
+      },
+      "q8": {
+        "label": "Möchten Sie an der BriefAI Pilotphase teilnehmen?",
+        "options": ["Ja, ich möchte teilnehmen", "Vielleicht, ich möchte mehr Informationen", "Nein, nur Feedback geben"]
+      }
+    },
+    "form": {
+      "name": "Name (optional)",
+      "email": "E-Mail (optional)",
+      "submit": "Feedback senden",
+      "success": "Vielen Dank für Ihr Feedback!",
+      "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+    }
   },
   "footer": {
     "company": "BriefAI",

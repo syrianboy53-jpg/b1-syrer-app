@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
+import Image from "next/image";
 
 export default function Features() {
   const { t } = useTranslation();
@@ -37,6 +38,16 @@ export default function Features() {
               <p className="text-sm text-dark-500">{card.description}</p>
             </div>
           ))}
+        </div>
+
+        <div className="mx-auto mt-16 flex justify-center">
+          <Image
+            src="/images/frist-termin.jpeg"
+            alt="Frist / Termin"
+            width={320}
+            height={600}
+            className="rounded-[2rem] shadow-2xl"
+          />
         </div>
       </div>
     </section>
