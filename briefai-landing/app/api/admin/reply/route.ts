@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
-
-const DATA_FILE = path.join(process.cwd(), "data", "messages.json");
+import { readJsonFile, writeJsonFile } from "@/lib/data-path";
 
 interface Reply {
   text: string;
@@ -19,6 +16,8 @@ interface Message {
   replies: Reply[];
 }
 
+const FILE = "messages.json";
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -31,8 +30,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const data = await fs.readFile(DATA_FILE, "utf-8");
-    const messages: Message[] = JSON.parse(data);
+    const messages = await readJsonFile<Message[]>(FILE, []);
 
     const messageIndex = messages.findIndex((m) => m.id === messageId);
     if (messageIndex === -1) {
@@ -48,7 +46,7 @@ export async function POST(request: NextRequest) {
     });
     messages[messageIndex].read = true;
 
-    await fs.writeFile(DATA_FILE, JSON.stringify(messages, null, 2));
+    await writeJsonFile(FILE, messages);
 
     return NextResponse.json({ success: true });
   } catch {

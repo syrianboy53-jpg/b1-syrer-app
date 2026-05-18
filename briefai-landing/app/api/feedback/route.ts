@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
-
-const DATA_FILE = path.join(process.cwd(), "data", "feedback.json");
+import { readJsonFile, writeJsonFile } from "@/lib/data-path";
 
 interface FeedbackEntry {
   id: string;
@@ -19,22 +16,11 @@ interface FeedbackEntry {
   createdAt: string;
 }
 
-async function readFeedback(): Promise<FeedbackEntry[]> {
-  try {
-    const data = await fs.readFile(DATA_FILE, "utf-8");
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
-}
-
-async function writeFeedback(entries: FeedbackEntry[]): Promise<void> {
-  await fs.writeFile(DATA_FILE, JSON.stringify(entries, null, 2));
-}
+const FILE = "feedback.json";
 
 export async function GET() {
   try {
-    const entries = await readFeedback();
+    const entries = await readJsonFile<FeedbackEntry[]>(FILE, []);
     return NextResponse.json(entries);
   } catch {
     return NextResponse.json(
@@ -56,7 +42,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const entries = await readFeedback();
+    const entries = await readJsonFile<FeedbackEntry[]>(FILE, []);
 
     const newEntry: FeedbackEntry = {
       id: Date.now().toString(),
@@ -74,7 +60,7 @@ export async function POST(request: NextRequest) {
     };
 
     entries.push(newEntry);
-    await writeFeedback(entries);
+    await writeJsonFile(FILE, entries);
 
     return NextResponse.json({ success: true, id: newEntry.id });
   } catch {

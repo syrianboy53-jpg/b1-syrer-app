@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
+import { readJsonFile } from "@/lib/data-path";
 
-const DATA_FILE = path.join(process.cwd(), "data", "pilot-registrations.json");
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const data = await fs.readFile(DATA_FILE, "utf-8");
-    const registrations = JSON.parse(data);
+    const registrations = await readJsonFile("pilot-registrations.json", []);
     return NextResponse.json(registrations);
   } catch {
     return NextResponse.json([]);

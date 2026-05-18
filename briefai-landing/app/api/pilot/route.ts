@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
-
-const DATA_FILE = path.join(process.cwd(), "data", "pilot-registrations.json");
+import { readJsonFile, writeJsonFile } from "@/lib/data-path";
 
 interface PilotRegistration {
   id: string;
@@ -17,20 +14,7 @@ interface PilotRegistration {
   status: "pending" | "contacted" | "accepted" | "rejected";
 }
 
-async function readRegistrations(): Promise<PilotRegistration[]> {
-  try {
-    const data = await fs.readFile(DATA_FILE, "utf-8");
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
-}
-
-async function writeRegistrations(
-  registrations: PilotRegistration[]
-): Promise<void> {
-  await fs.writeFile(DATA_FILE, JSON.stringify(registrations, null, 2));
-}
+const FILE = "pilot-registrations.json";
 
 export async function POST(request: NextRequest) {
   try {
@@ -44,14 +28,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const dataDir = path.join(process.cwd(), "data");
-    try {
-      await fs.access(dataDir);
-    } catch {
-      await fs.mkdir(dataDir, { recursive: true });
-    }
-
-    const registrations = await readRegistrations();
+    const registrations = await readJsonFile<PilotRegistration[]>(FILE, []);
 
     const exists = registrations.some((r) => r.email === email);
     if (exists) {
@@ -75,7 +52,7 @@ export async function POST(request: NextRequest) {
     };
 
     registrations.push(newRegistration);
-    await writeRegistrations(registrations);
+    await writeJsonFile(FILE, registrations);
 
     return NextResponse.json({ success: true, id: newRegistration.id });
   } catch {
