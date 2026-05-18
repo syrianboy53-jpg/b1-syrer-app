@@ -120,10 +120,14 @@ export default function Hero() {
             {isMuted && (
               <button
                 onClick={handleUnmute}
-                className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-primary-700"
+                className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 transition-all hover:bg-black/40"
               >
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M5.889 16H2a1 1 0 01-1-1V9a1 1 0 011-1h3.889l5.294-4.332a.5.5 0 01.817.387v15.89a.5.5 0 01-.817.387L5.89 16z"/><path d="M20.414 12l2.293-2.293a1 1 0 00-1.414-1.414L19 10.586l-2.293-2.293a1 1 0 00-1.414 1.414L17.586 12l-2.293 2.293a1 1 0 001.414 1.414L19 13.414l2.293 2.293a1 1 0 001.414-1.414L20.414 12z"/></svg>
-                {isAr ? "تشغيل الصوت" : "Ton aktivieren"}
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary-600 shadow-lg">
+                  <svg className="h-8 w-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                </div>
+                <span className="mt-3 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-dark-800 shadow">
+                  {isAr ? "اضغط لتشغيل الصوت" : "Tippen für Ton"}
+                </span>
               </button>
             )}
           </div>
