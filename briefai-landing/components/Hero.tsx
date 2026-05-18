@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next";
 import Image from "next/image";
 
 export default function Hero() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isAr = i18n.language === "ar";
 
   return (
     <section className="gradient-bg relative overflow-hidden pb-16 pt-28 sm:pb-24 sm:pt-36">
@@ -54,21 +55,25 @@ export default function Hero() {
         <div className="mx-auto mt-16 max-w-4xl animate-fade-in-up">
           <div className="relative overflow-hidden rounded-2xl border border-dark-100 bg-white shadow-2xl">
             <video
+              key={isAr ? "ar" : "de"}
               autoPlay
               loop
               muted
               playsInline
               className="w-full"
-              poster="/images/app-home.jpeg"
+              poster={isAr ? "/images/app-home-ar.jpeg" : "/images/app-home.jpeg"}
             >
-              <source src="/videos/briefai-intro.mp4" type="video/mp4" />
+              <source
+                src={isAr ? "/videos/briefai-intro-ar.mp4" : "/videos/briefai-intro.mp4"}
+                type="video/mp4"
+              />
             </video>
           </div>
         </div>
 
         <div className="mx-auto mt-12 max-w-sm animate-fade-in-up">
           <Image
-            src="/images/app-home.jpeg"
+            src={isAr ? "/images/app-home-ar.jpeg" : "/images/app-home.jpeg"}
             alt={t("hero.mockup_alt")}
             width={400}
             height={800}

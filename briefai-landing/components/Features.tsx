@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next";
 import Image from "next/image";
 
 export default function Features() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isAr = i18n.language === "ar";
 
   const cards = t("features.cards", { returnObjects: true }) as Array<{
     icon: string;
@@ -42,7 +43,7 @@ export default function Features() {
 
         <div className="mx-auto mt-16 flex justify-center">
           <Image
-            src="/images/frist-termin.jpeg"
+            src={isAr ? "/images/frist-termin-ar.jpeg" : "/images/frist-termin.jpeg"}
             alt="Frist / Termin"
             width={320}
             height={600}

@@ -3,14 +3,15 @@
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 
-const stepImages = [
-  null,
-  "/images/analyse-ergebnis.jpeg",
-  "/images/zusammenfassung.jpeg",
-];
+const stepImages = {
+  de: [null, "/images/analyse-ergebnis.jpeg", "/images/zusammenfassung.jpeg"],
+  ar: [null, "/images/analyse-ergebnis-ar.jpeg", "/images/zusammenfassung-ar.jpeg"],
+};
 
 export default function Solution() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isAr = i18n.language === "ar";
+  const images = isAr ? stepImages.ar : stepImages.de;
 
   const steps = t("solution.steps", { returnObjects: true }) as Array<{
     number: string;
@@ -56,9 +57,9 @@ export default function Solution() {
                 <div className="hidden h-4 w-4 flex-shrink-0 rounded-full border-4 border-primary-600 bg-white md:block" />
 
                 <div className="flex flex-1 justify-center">
-                  {stepImages[index] ? (
+                  {images[index] ? (
                     <Image
-                      src={stepImages[index]}
+                      src={images[index]}
                       alt={step.title}
                       width={280}
                       height={500}
