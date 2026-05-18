@@ -56,12 +56,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Made in Germany */}
+          {/* Made in Germany + Admin */}
           <div className="flex flex-col items-start sm:items-end">
             <div className="mb-2 flex items-center gap-2">
               <span className="text-2xl">🇩🇪</span>
               <span className="text-sm font-semibold text-dark-300">{t("footer.madeIn")}</span>
             </div>
+            <a href="/admin" className="mt-3 text-xs text-dark-500 transition-colors hover:text-dark-300">
+              Admin Dashboard
+            </a>
           </div>
         </div>
 
