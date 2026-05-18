@@ -4,7 +4,7 @@ import { useState, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function Pilot() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,7 +14,7 @@ export default function Pilot() {
     participation: "",
     message: "",
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "duplicate">("idle");
 
   const benefits = t("pilot.benefits", { returnObjects: true }) as string[];
 
@@ -33,10 +33,17 @@ export default function Pilot() {
         setStatus("success");
         setFormData({ name: "", email: "", city: "", language: "", role: "", participation: "", message: "" });
       } else {
-        setStatus("error");
+        const data = await res.json().catch(() => null);
+        if (res.status === 409) {
+          setStatus("duplicate");
+        } else {
+          setStatus("error");
+          console.error("Pilot API error:", data);
+        }
       }
-    } catch {
+    } catch (err) {
       setStatus("error");
+      console.error("Pilot fetch error:", err);
     }
   };
 
@@ -143,6 +150,9 @@ export default function Pilot() {
 
                 {status === "error" && (
                   <p className="text-sm text-red-600">{t("pilot.form.error")}</p>
+                )}
+                {status === "duplicate" && (
+                  <p className="text-sm text-orange-600">{i18n.language === "ar" ? "هذا البريد الإلكتروني مسجل مسبقاً." : "Diese E-Mail ist bereits registriert."}</p>
                 )}
 
                 <button
