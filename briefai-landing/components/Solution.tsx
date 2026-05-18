@@ -11,21 +11,16 @@ const stepIcons = [
   <svg key="check" className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>,
 ];
 
-interface PhoneMockupProps {
+interface ScreenshotProps {
   src: string;
   alt: string;
 }
 
-function PhoneMockup({ src, alt }: PhoneMockupProps) {
+function Screenshot({ src, alt }: ScreenshotProps) {
   return (
-    <div className="mx-auto w-[220px] sm:w-[260px]">
-      <div className="overflow-hidden rounded-[2rem] border-[5px] border-dark-800 bg-dark-900 shadow-2xl">
-        <div className="relative bg-dark-900 px-6 py-1">
-          <div className="mx-auto h-3 w-20 rounded-b-lg bg-dark-800" />
-        </div>
-        <div className="bg-white">
-          <Image src={src} alt={alt} width={260} height={520} className="w-full" />
-        </div>
+    <div className="mx-auto w-full">
+      <div className="overflow-hidden rounded-2xl shadow-lg">
+        <Image src={src} alt={alt} width={400} height={800} className="w-full h-auto" />
       </div>
     </div>
   );
@@ -98,10 +93,10 @@ export default function Solution() {
         </div>
 
         {/* Screenshots grid */}
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {screenshots.map((shot, index) => (
             <div key={index} className="text-center">
-              <PhoneMockup
+              <Screenshot
                 src={isAr ? shot.ar : shot.de}
                 alt={screenshotCaptions[index]}
               />

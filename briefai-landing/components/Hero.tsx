@@ -81,23 +81,18 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Phone Mockup */}
+          {/* App Screenshot */}
           <div className="flex flex-1 justify-center animate-fade-in-up">
-            <div className="relative mx-auto w-[280px] sm:w-[320px] lg:w-[340px]">
-              <div className="overflow-hidden rounded-[2.5rem] border-[6px] border-dark-800 bg-dark-900 shadow-2xl">
-                <div className="relative bg-dark-900 px-8 py-1.5">
-                  <div className="mx-auto h-4 w-24 rounded-b-xl bg-dark-800" />
-                </div>
-                <div className="bg-white">
-                  <Image
-                    src={isAr ? "/images/app-home-ar.jpeg" : "/images/app-home.jpeg"}
-                    alt={t("hero.mockup_alt")}
-                    width={340}
-                    height={680}
-                    className="w-full"
-                    priority
-                  />
-                </div>
+            <div className="relative mx-auto w-[300px] sm:w-[340px] lg:w-[380px]">
+              <div className="overflow-hidden rounded-2xl shadow-2xl">
+                <Image
+                  src={isAr ? "/images/app-home-ar.jpeg" : "/images/app-home.jpeg"}
+                  alt={t("hero.mockup_alt")}
+                  width={380}
+                  height={760}
+                  className="w-full h-auto"
+                  priority
+                />
               </div>
             </div>
           </div>
