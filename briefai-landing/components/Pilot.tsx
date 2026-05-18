@@ -8,8 +8,11 @@ export default function Pilot() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    reason: "",
+    city: "",
+    language: "",
+    role: "",
+    participation: "",
+    message: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -28,7 +31,7 @@ export default function Pilot() {
 
       if (res.ok) {
         setStatus("success");
-        setFormData({ name: "", email: "", phone: "", reason: "" });
+        setFormData({ name: "", email: "", city: "", language: "", role: "", participation: "", message: "" });
       } else {
         setStatus("error");
       }
@@ -37,139 +40,115 @@ export default function Pilot() {
     }
   };
 
+  const inputClasses = "w-full rounded-lg border border-dark-200 bg-gray-50 px-4 py-2.5 text-sm text-dark-900 transition-colors focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-200";
+  const labelClasses = "mb-1 block text-sm font-medium text-dark-700";
+
   return (
-    <section id="pilot" className="section-padding gradient-bg">
+    <section id="pilot" className="section-padding bg-white">
       <div className="container-custom">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
+          {/* Left: Info */}
           <div>
-            <h2 className="mb-4 text-3xl font-bold text-dark-900 sm:text-4xl">
+            <h2 className="mb-4 text-2xl font-bold text-dark-900 sm:text-3xl">
               {t("pilot.title")}
             </h2>
-            <p className="mb-4 text-lg text-dark-500">
-              {t("pilot.subtitle")}
-            </p>
-            <p className="mb-8 text-dark-500">{t("pilot.description")}</p>
+            <p className="mb-8 text-base text-dark-500 leading-relaxed">{t("pilot.description")}</p>
 
-            <ul className="space-y-4">
+            <ul className="mb-8 space-y-3">
               {benefits.map((benefit, index) => (
-                <li key={index} className="flex items-center gap-3">
-                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-600">
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
+                <li key={index} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600">
+                    <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </span>
-                  <span className="text-dark-700">{benefit}</span>
+                  <span className="text-sm text-dark-700">{benefit}</span>
                 </li>
               ))}
             </ul>
+
+            <a href="#pilot" className="inline-block rounded-full bg-primary-600 px-8 py-3 text-base font-semibold text-white transition-all hover:bg-primary-700 hover:shadow-lg">
+              {t("pilot.form.cta")}
+            </a>
           </div>
 
-          <div className="card !p-8">
+          {/* Right: Form */}
+          <div className="rounded-2xl border border-dark-100 bg-white p-6 shadow-sm sm:p-8">
             {status === "success" ? (
               <div className="py-12 text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-3xl">
-                  🎉
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                  <svg className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
                 </div>
-                <p className="text-lg font-semibold text-green-700">
-                  {t("pilot.form.success")}
-                </p>
+                <p className="text-lg font-semibold text-green-700">{t("pilot.form.success")}</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="mb-1 block text-sm font-medium text-dark-700"
-                  >
-                    {t("pilot.form.name")} *
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    className="w-full rounded-lg border border-dark-200 px-4 py-3 text-dark-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
-                  />
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className={labelClasses}>{t("pilot.form.name")}</label>
+                    <input id="name" type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder={t("pilot.form.name_placeholder")} className={inputClasses} />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className={labelClasses}>{t("pilot.form.email")}</label>
+                    <input id="email" type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder={t("pilot.form.email_placeholder")} className={inputClasses} />
+                  </div>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="city" className={labelClasses}>{t("pilot.form.city")}</label>
+                    <input id="city" type="text" value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} placeholder={t("pilot.form.city_placeholder")} className={inputClasses} />
+                  </div>
+                  <div>
+                    <label htmlFor="language" className={labelClasses}>{t("pilot.form.language")}</label>
+                    <select id="language" value={formData.language} onChange={(e) => setFormData({ ...formData, language: e.target.value })} className={inputClasses}>
+                      <option value="">{t("pilot.form.language_placeholder")}</option>
+                      <option value="Deutsch">Deutsch</option>
+                      <option value="العربية">العربية</option>
+                      <option value="Türkçe">Türkçe</option>
+                      <option value="English">English</option>
+                      <option value="Українська">Українська</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="role" className={labelClasses}>{t("pilot.form.role")}</label>
+                    <select id="role" value={formData.role} onChange={(e) => setFormData({ ...formData, role: e.target.value })} className={inputClasses}>
+                      <option value="">{t("pilot.form.role_placeholder")}</option>
+                      <option value="individual">Einzelperson / فرد</option>
+                      <option value="organization">Organisation / منظمة</option>
+                      <option value="advisor">Berater / مستشار</option>
+                      <option value="student">Student / طالب</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="participation" className={labelClasses}>{t("pilot.form.participation")}</label>
+                    <select id="participation" value={formData.participation} onChange={(e) => setFormData({ ...formData, participation: e.target.value })} className={inputClasses}>
+                      <option value="">{t("pilot.form.participation_placeholder")}</option>
+                      <option value="yes">Ja / نعم</option>
+                      <option value="maybe">Vielleicht / ربما</option>
+                      <option value="feedback_only">Nur Feedback / ملاحظات فقط</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="mb-1 block text-sm font-medium text-dark-700"
-                  >
-                    {t("pilot.form.email")} *
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    className="w-full rounded-lg border border-dark-200 px-4 py-3 text-dark-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="mb-1 block text-sm font-medium text-dark-700"
-                  >
-                    {t("pilot.form.phone")}
-                  </label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                    className="w-full rounded-lg border border-dark-200 px-4 py-3 text-dark-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="reason"
-                    className="mb-1 block text-sm font-medium text-dark-700"
-                  >
-                    {t("pilot.form.reason")}
-                  </label>
-                  <textarea
-                    id="reason"
-                    rows={3}
-                    value={formData.reason}
-                    onChange={(e) =>
-                      setFormData({ ...formData, reason: e.target.value })
-                    }
-                    className="w-full rounded-lg border border-dark-200 px-4 py-3 text-dark-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
-                  />
+                  <label htmlFor="message" className={labelClasses}>{t("pilot.form.message")}</label>
+                  <textarea id="message" rows={3} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} placeholder={t("pilot.form.message_placeholder")} className={inputClasses} />
                 </div>
 
                 {status === "error" && (
-                  <p className="text-sm text-red-600">
-                    {t("pilot.form.error")}
-                  </p>
+                  <p className="text-sm text-red-600">{t("pilot.form.error")}</p>
                 )}
 
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="btn-primary w-full disabled:opacity-50"
+                  className="w-full rounded-full bg-primary-600 px-6 py-3 text-base font-semibold text-white transition-all hover:bg-primary-700 disabled:opacity-50"
                 >
                   {status === "loading" ? "..." : t("pilot.form.submit")}
                 </button>

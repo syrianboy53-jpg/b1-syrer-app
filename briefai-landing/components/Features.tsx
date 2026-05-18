@@ -1,63 +1,48 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import Image from "next/image";
+
+const featureIcons = [
+  { bg: "bg-blue-50", color: "text-primary-600", icon: <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg> },
+  { bg: "bg-green-50", color: "text-green-600", icon: <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> },
+  { bg: "bg-red-50", color: "text-red-500", icon: <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> },
+  { bg: "bg-purple-50", color: "text-purple-600", icon: <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="9,11 12,14 22,4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> },
+  { bg: "bg-cyan-50", color: "text-cyan-600", icon: <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> },
+  { bg: "bg-orange-50", color: "text-orange-500", icon: <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg> },
+];
 
 export default function Features() {
-  const { t, i18n } = useTranslation();
-  const isAr = i18n.language === "ar";
+  const { t } = useTranslation();
 
   const cards = t("features.cards", { returnObjects: true }) as Array<{
-    icon: string;
     title: string;
     description: string;
   }>;
 
   return (
-    <section id="features" className="section-padding bg-white">
+    <section id="features" className="section-padding bg-gradient-to-b from-blue-50 to-white">
       <div className="container-custom">
-        <div className="mx-auto mb-16 max-w-3xl text-center">
-          <h2 className="mb-4 text-3xl font-bold text-dark-900 sm:text-4xl">
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <h2 className="mb-4 text-2xl font-bold text-dark-900 sm:text-3xl lg:text-4xl">
             {t("features.title")}
           </h2>
-          <p className="text-lg text-dark-500">{t("features.subtitle")}</p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((card, index) => (
             <div
               key={index}
-              className="card group"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="rounded-2xl border border-dark-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md"
             >
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-50 text-2xl transition-all duration-300 group-hover:bg-primary-100 group-hover:scale-110">
-                {card.icon}
+              <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${featureIcons[index]?.bg} ${featureIcons[index]?.color}`}>
+                {featureIcons[index]?.icon}
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-dark-900">
+              <h3 className="mb-2 text-base font-semibold text-dark-900">
                 {card.title}
               </h3>
-              <p className="text-sm text-dark-500">{card.description}</p>
+              <p className="text-sm text-dark-500 leading-relaxed">{card.description}</p>
             </div>
           ))}
-        </div>
-
-        <div className="mx-auto mt-16 flex justify-center">
-          <div className="relative mx-auto w-[260px] sm:w-[300px]">
-            <div className="overflow-hidden rounded-[2.5rem] border-[5px] border-dark-800 bg-dark-900 shadow-2xl">
-              <div className="relative bg-dark-900 px-6 py-1.5">
-                <div className="mx-auto h-4 w-20 rounded-b-xl bg-dark-800" />
-              </div>
-              <div className="bg-white">
-                <Image
-                  src={isAr ? "/images/frist-termin-ar.jpeg" : "/images/frist-termin.jpeg"}
-                  alt="Frist / Termin"
-                  width={360}
-                  height={720}
-                  className="w-full"
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
