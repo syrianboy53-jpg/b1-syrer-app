@@ -58,13 +58,22 @@ export default function Solution() {
 
                 <div className="flex flex-1 justify-center">
                   {images[index] ? (
-                    <Image
-                      src={images[index]}
-                      alt={step.title}
-                      width={280}
-                      height={500}
-                      className="rounded-[1.5rem] shadow-xl"
-                    />
+                    <div className="relative mx-auto w-[240px] sm:w-[280px]">
+                      <div className="overflow-hidden rounded-[2rem] border-[5px] border-dark-800 bg-dark-900 shadow-2xl">
+                        <div className="relative bg-dark-900 px-6 py-1.5">
+                          <div className="mx-auto h-4 w-20 rounded-b-xl bg-dark-800" />
+                        </div>
+                        <div className="bg-white">
+                          <Image
+                            src={images[index]}
+                            alt={step.title}
+                            width={340}
+                            height={680}
+                            className="w-full"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   ) : (
                     <div className="hidden md:block" />
                   )}

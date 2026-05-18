@@ -42,13 +42,22 @@ export default function Features() {
         </div>
 
         <div className="mx-auto mt-16 flex justify-center">
-          <Image
-            src={isAr ? "/images/frist-termin-ar.jpeg" : "/images/frist-termin.jpeg"}
-            alt="Frist / Termin"
-            width={320}
-            height={600}
-            className="rounded-[2rem] shadow-2xl"
-          />
+          <div className="relative mx-auto w-[260px] sm:w-[300px]">
+            <div className="overflow-hidden rounded-[2.5rem] border-[5px] border-dark-800 bg-dark-900 shadow-2xl">
+              <div className="relative bg-dark-900 px-6 py-1.5">
+                <div className="mx-auto h-4 w-20 rounded-b-xl bg-dark-800" />
+              </div>
+              <div className="bg-white">
+                <Image
+                  src={isAr ? "/images/frist-termin-ar.jpeg" : "/images/frist-termin.jpeg"}
+                  alt="Frist / Termin"
+                  width={360}
+                  height={720}
+                  className="w-full"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
