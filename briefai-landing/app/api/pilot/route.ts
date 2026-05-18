@@ -8,8 +8,11 @@ interface PilotRegistration {
   id: string;
   name: string;
   email: string;
-  phone: string;
-  reason: string;
+  city: string;
+  language: string;
+  role: string;
+  participation: string;
+  message: string;
   createdAt: string;
   status: "pending" | "contacted" | "accepted" | "rejected";
 }
@@ -32,13 +35,20 @@ async function writeRegistrations(
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, reason } = body;
+    const { name, email, city, language, role, participation, message } = body;
 
     if (!name || !email) {
       return NextResponse.json(
         { error: "Name and email are required" },
         { status: 400 }
       );
+    }
+
+    const dataDir = path.join(process.cwd(), "data");
+    try {
+      await fs.access(dataDir);
+    } catch {
+      await fs.mkdir(dataDir, { recursive: true });
     }
 
     const registrations = await readRegistrations();
@@ -55,8 +65,11 @@ export async function POST(request: NextRequest) {
       id: Date.now().toString(),
       name,
       email,
-      phone: phone || "",
-      reason: reason || "",
+      city: city || "",
+      language: language || "",
+      role: role || "",
+      participation: participation || "",
+      message: message || "",
       createdAt: new Date().toISOString(),
       status: "pending",
     };
