@@ -30,7 +30,7 @@ export default function Feedback() {
     name: "",
     email: "",
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "validation">("idle");
 
   const handleRadioChange = (question: keyof FeedbackData, value: string) => {
     setFormData({ ...formData, [question]: value });
@@ -47,6 +47,12 @@ export default function Feedback() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!formData.q1 || !formData.q2 || !formData.q3 || !formData.q4 || !formData.q5 || !formData.q8) {
+      setStatus("validation");
+      return;
+    }
+
     setStatus("loading");
 
     try {
@@ -241,6 +247,11 @@ export default function Feedback() {
 
               {status === "error" && (
                 <p className="text-sm text-red-600">{t("feedback.form.error")}</p>
+              )}
+              {status === "validation" && (
+                <p className="text-sm text-orange-600">
+                  {t("feedback.form.validation", "Bitte beantworten Sie alle Pflichtfragen. / يرجى الإجابة على جميع الأسئلة المطلوبة.")}
+                </p>
               )}
 
               <button
