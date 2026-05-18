@@ -1,11 +1,36 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Hero() {
   const { t, i18n } = useTranslation();
   const isAr = i18n.language === "ar";
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true;
+      video.play().then(() => {
+        video.muted = false;
+        setIsMuted(false);
+      }).catch(() => {
+        setIsMuted(true);
+      });
+    }
+  }, [isAr]);
+
+  const handleUnmute = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = false;
+      video.play();
+      setIsMuted(false);
+    }
+  };
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-50 pb-12 pt-24 sm:pb-16 sm:pt-28">
@@ -82,10 +107,13 @@ export default function Hero() {
         <div id="video-section" className="mx-auto mt-16 max-w-4xl animate-fade-in-up">
           <div className="relative overflow-hidden rounded-2xl border border-dark-100 bg-white shadow-xl">
             <video
+              ref={videoRef}
               key={isAr ? "ar" : "de"}
               autoPlay
+              muted
               loop
               playsInline
+              controls
               className="w-full"
               poster={isAr ? "/images/app-home-ar.jpeg" : "/images/app-home.jpeg"}
             >
@@ -94,6 +122,15 @@ export default function Hero() {
                 type="video/mp4"
               />
             </video>
+            {isMuted && (
+              <button
+                onClick={handleUnmute}
+                className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-primary-700"
+              >
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M5.889 16H2a1 1 0 01-1-1V9a1 1 0 011-1h3.889l5.294-4.332a.5.5 0 01.817.387v15.89a.5.5 0 01-.817.387L5.89 16z"/><path d="M20.414 12l2.293-2.293a1 1 0 00-1.414-1.414L19 10.586l-2.293-2.293a1 1 0 00-1.414 1.414L17.586 12l-2.293 2.293a1 1 0 001.414 1.414L19 13.414l2.293 2.293a1 1 0 001.414-1.414L20.414 12z"/></svg>
+                {isAr ? "تشغيل الصوت" : "Ton aktivieren"}
+              </button>
+            )}
           </div>
         </div>
       </div>
