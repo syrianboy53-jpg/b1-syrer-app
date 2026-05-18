@@ -20,9 +20,10 @@ export default function AdminDashboard() {
   useEffect(() => {
     async function fetchStats() {
       try {
+        const origin = window.location.origin;
         const [messagesRes, registrationsRes] = await Promise.all([
-          fetch("/api/admin/messages"),
-          fetch("/api/admin/pilot-registrations"),
+          fetch(`${origin}/api/admin/messages`),
+          fetch(`${origin}/api/admin/pilot-registrations`),
         ]);
 
         const messages = await messagesRes.json();

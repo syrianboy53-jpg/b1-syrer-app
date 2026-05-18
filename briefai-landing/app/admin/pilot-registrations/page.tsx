@@ -20,7 +20,7 @@ export default function PilotRegistrationsPage() {
   useEffect(() => {
     async function fetchRegistrations() {
       try {
-        const res = await fetch("/api/admin/pilot-registrations");
+        const res = await fetch(`${window.location.origin}/api/admin/pilot-registrations`);
         const data = await res.json();
         setRegistrations(data);
       } catch {

@@ -24,7 +24,7 @@ export default function MessagesPage() {
 
   const fetchMessages = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/messages");
+      const res = await fetch(`${window.location.origin}/api/admin/messages`);
       const data = await res.json();
       setMessages(data);
     } catch {
@@ -40,7 +40,7 @@ export default function MessagesPage() {
 
   const handleReply = async (messageId: string, reply: string) => {
     try {
-      const res = await fetch("/api/admin/reply", {
+      const res = await fetch(`${window.location.origin}/api/admin/reply`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messageId, reply }),
