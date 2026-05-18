@@ -50,7 +50,8 @@ export default function Feedback() {
     setStatus("loading");
 
     try {
-      const res = await fetch("/api/feedback", {
+      const apiUrl = `${window.location.origin}/api/feedback`;
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

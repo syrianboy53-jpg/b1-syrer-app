@@ -23,7 +23,8 @@ export default function Pilot() {
     setStatus("loading");
 
     try {
-      const res = await fetch("/api/pilot", {
+      const apiUrl = `${window.location.origin}/api/pilot`;
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
