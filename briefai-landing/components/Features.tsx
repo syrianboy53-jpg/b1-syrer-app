@@ -1,44 +1,44 @@
-interface FeaturesProps {
-  translations: {
-    title: string
-    subtitle: string
-    items: Array<{
-      icon: string
-      title: string
-      description: string
-    }>
-  }
-}
+"use client";
 
-export default function Features({ translations }: FeaturesProps) {
+import { useTranslation } from "react-i18next";
+
+export default function Features() {
+  const { t } = useTranslation();
+
+  const cards = t("features.cards", { returnObjects: true }) as Array<{
+    icon: string;
+    title: string;
+    description: string;
+  }>;
+
   return (
-    <section id="features" className="section-padding bg-soft-gray">
-      <div className="container-max mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark mb-4">
-            {translations.title}
+    <section id="features" className="section-padding bg-white">
+      <div className="container-custom">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <h2 className="mb-4 text-3xl font-bold text-dark-900 sm:text-4xl">
+            {t("features.title")}
           </h2>
-          <p className="text-text-gray text-lg max-w-2xl mx-auto">
-            {translations.subtitle}
-          </p>
+          <p className="text-lg text-dark-500">{t("features.subtitle")}</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {translations.items.map((item, index) => (
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {cards.map((card, index) => (
             <div
               key={index}
-              className="card animate-fade-in-up"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="card group"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <span className="text-3xl mb-3 block">{item.icon}</span>
-              <h3 className="text-lg font-semibold text-primary-dark mb-2">
-                {item.title}
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-50 text-2xl transition-all duration-300 group-hover:bg-primary-100 group-hover:scale-110">
+                {card.icon}
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-dark-900">
+                {card.title}
               </h3>
-              <p className="text-text-gray text-sm">{item.description}</p>
+              <p className="text-sm text-dark-500">{card.description}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

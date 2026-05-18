@@ -1,0 +1,189 @@
+{
+  "nav": {
+    "problem": "Problem",
+    "solution": "Lösung",
+    "features": "Funktionen",
+    "trust": "Vertrauen",
+    "pilot": "Pilot-Programm",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "switchLang": "العربية",
+    "admin": "Admin"
+  },
+  "hero": {
+    "badge": "KI-gestützte Briefanalyse",
+    "title": "Amtliche Briefe verstehen.",
+    "titleHighlight": "Sofort.",
+    "subtitle": "BriefAI analysiert deutsche Behördenbriefe mit KI – erklärt den Inhalt, erkennt Fristen und schlägt nächste Schritte vor. Einfach, sicher und datenschutzkonform.",
+    "cta_primary": "Am Pilot teilnehmen",
+    "cta_secondary": "So funktioniert's",
+    "mockup_alt": "BriefAI App Vorschau"
+  },
+  "problem": {
+    "title": "Das Problem",
+    "subtitle": "Millionen Menschen in Deutschland kämpfen täglich mit Behördenbriefen",
+    "cards": [
+      {
+        "icon": "📄",
+        "title": "Komplizierte Sprache",
+        "description": "Behördenbriefe nutzen Fachsprache, die selbst Muttersprachler oft nicht verstehen."
+      },
+      {
+        "icon": "⏰",
+        "title": "Versteckte Fristen",
+        "description": "Wichtige Deadlines werden übersehen – mit teuren Konsequenzen."
+      },
+      {
+        "icon": "🌍",
+        "title": "Sprachbarriere",
+        "description": "Für Zugewanderte sind Amtsbriefe besonders schwer zu entschlüsseln."
+      }
+    ]
+  },
+  "solution": {
+    "title": "Die Lösung",
+    "subtitle": "BriefAI macht Behördenbriefe verständlich – in 3 einfachen Schritten",
+    "steps": [
+      {
+        "number": "1",
+        "title": "Brief fotografieren",
+        "description": "Machen Sie einfach ein Foto des Briefes mit Ihrem Smartphone."
+      },
+      {
+        "number": "2",
+        "title": "KI analysiert",
+        "description": "Unsere KI erkennt den Absender, extrahiert Fristen und analysiert den Inhalt."
+      },
+      {
+        "number": "3",
+        "title": "Ergebnis erhalten",
+        "description": "Sie erhalten eine klare Zusammenfassung, Fristen-Übersicht und empfohlene nächste Schritte."
+      }
+    ]
+  },
+  "features": {
+    "title": "Funktionen",
+    "subtitle": "Alles was Sie brauchen, um Behördenbriefe zu verstehen",
+    "cards": [
+      {
+        "icon": "🔍",
+        "title": "Intelligente Texterkennung",
+        "description": "OCR-Technologie erkennt Text aus Fotos – auch bei schlechter Qualität."
+      },
+      {
+        "icon": "🤖",
+        "title": "KI-Zusammenfassung",
+        "description": "GPT-basierte Analyse fasst den Brief in einfacher Sprache zusammen."
+      },
+      {
+        "icon": "📅",
+        "title": "Fristen-Erkennung",
+        "description": "Automatische Erkennung und Erinnerung an wichtige Termine und Fristen."
+      },
+      {
+        "icon": "🌐",
+        "title": "Mehrsprachig",
+        "description": "Erklärungen in Deutsch, Arabisch und weiteren Sprachen verfügbar."
+      },
+      {
+        "icon": "🔒",
+        "title": "Datenschutz",
+        "description": "Alle Daten werden verschlüsselt. DSGVO-konform. Keine Weitergabe an Dritte."
+      },
+      {
+        "icon": "📱",
+        "title": "Einfache Bedienung",
+        "description": "Intuitive Oberfläche – keine technischen Kenntnisse nötig."
+      }
+    ]
+  },
+  "trust": {
+    "title": "Vertrauen & Sicherheit",
+    "subtitle": "Ihre Daten sind bei uns sicher",
+    "points": [
+      {
+        "icon": "🛡️",
+        "title": "DSGVO-konform",
+        "description": "Vollständige Einhaltung der europäischen Datenschutzgrundverordnung."
+      },
+      {
+        "icon": "🔐",
+        "title": "Ende-zu-Ende Verschlüsselung",
+        "description": "Ihre Briefe werden verschlüsselt übertragen und verarbeitet."
+      },
+      {
+        "icon": "🗑️",
+        "title": "Automatische Löschung",
+        "description": "Hochgeladene Dokumente werden nach der Analyse automatisch gelöscht."
+      },
+      {
+        "icon": "🇩🇪",
+        "title": "Server in Deutschland",
+        "description": "Alle Daten werden ausschließlich auf deutschen Servern verarbeitet."
+      }
+    ]
+  },
+  "pilot": {
+    "title": "Pilot-Programm",
+    "subtitle": "Seien Sie unter den Ersten, die BriefAI nutzen",
+    "description": "Wir suchen 100 Pilot-Nutzer, die BriefAI vor dem offiziellen Start testen möchten. Kostenlos und unverbindlich.",
+    "form": {
+      "name": "Vollständiger Name",
+      "email": "E-Mail-Adresse",
+      "phone": "Telefonnummer (optional)",
+      "reason": "Warum möchten Sie teilnehmen?",
+      "submit": "Jetzt anmelden",
+      "success": "Vielen Dank! Wir melden uns bei Ihnen.",
+      "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+    },
+    "benefits": [
+      "Kostenloser Zugang zur Beta-Version",
+      "Direkter Draht zum Entwicklerteam",
+      "Ihre Wünsche fließen in die Entwicklung ein"
+    ]
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "items": [
+      {
+        "question": "Was ist BriefAI?",
+        "answer": "BriefAI ist eine KI-gestützte App, die Behördenbriefe analysiert und in einfacher Sprache erklärt. Sie erkennt Fristen und empfiehlt nächste Schritte."
+      },
+      {
+        "question": "Ist BriefAI kostenlos?",
+        "answer": "Während der Pilot-Phase ist BriefAI komplett kostenlos. Später wird es ein Freemium-Modell geben."
+      },
+      {
+        "question": "Welche Briefe kann BriefAI analysieren?",
+        "answer": "BriefAI kann alle gängigen Behördenbriefe analysieren – vom Jobcenter, Finanzamt, Ausländerbehörde und mehr."
+      },
+      {
+        "question": "Wie sicher sind meine Daten?",
+        "answer": "Alle Daten werden verschlüsselt übertragen und verarbeitet. Wir sind DSGVO-konform und speichern keine Dokumente dauerhaft."
+      },
+      {
+        "question": "In welchen Sprachen ist BriefAI verfügbar?",
+        "answer": "Aktuell sind Deutsch und Arabisch verfügbar. Weitere Sprachen wie Türkisch, Ukrainisch und Englisch folgen."
+      },
+      {
+        "question": "Brauche ich technische Kenntnisse?",
+        "answer": "Nein! BriefAI ist so einfach wie ein Foto machen. Die App führt Sie Schritt für Schritt durch den Prozess."
+      }
+    ]
+  },
+  "footer": {
+    "company": "BriefAI",
+    "tagline": "KI-gestützte Briefanalyse für alle.",
+    "links": {
+      "privacy": "Datenschutz",
+      "imprint": "Impressum",
+      "terms": "AGB"
+    },
+    "contact": {
+      "title": "Kontakt",
+      "email": "info@briefai.de",
+      "location": "Berlin, Deutschland"
+    },
+    "copyright": "© 2025 BriefAI. Alle Rechte vorbehalten."
+  }
+}

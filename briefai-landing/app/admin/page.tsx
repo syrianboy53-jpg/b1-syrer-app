@@ -1,81 +1,128 @@
-import AdminLayout from '@/components/admin/AdminLayout'
-import Stats from '@/components/admin/Stats'
-import { getMessages, getPilotRegistrations } from '@/lib/storage'
+"use client";
 
-export const dynamic = 'force-dynamic'
+import { useEffect, useState } from "react";
 
-export default async function AdminDashboard() {
-  const messages = await getMessages()
-  const pilotRegistrations = await getPilotRegistrations()
+interface Stats {
+  totalMessages: number;
+  unreadMessages: number;
+  totalRegistrations: number;
+  pendingRegistrations: number;
+}
 
-  const sevenDaysAgo = new Date()
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+export default function AdminDashboard() {
+  const [stats, setStats] = useState<Stats>({
+    totalMessages: 0,
+    unreadMessages: 0,
+    totalRegistrations: 0,
+    pendingRegistrations: 0,
+  });
 
-  const stats = {
-    totalMessages: messages.length,
-    unreadMessages: messages.filter(m => !m.replied).length,
-    totalPilot: pilotRegistrations.length,
-    recentPilot: pilotRegistrations.filter(
-      r => new Date(r.createdAt) > sevenDaysAgo
-    ).length,
-  }
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const [messagesRes, registrationsRes] = await Promise.all([
+          fetch("/api/admin/messages"),
+          fetch("/api/admin/pilot-registrations"),
+        ]);
+
+        const messages = await messagesRes.json();
+        const registrations = await registrationsRes.json();
+
+        setStats({
+          totalMessages: messages.length,
+          unreadMessages: messages.filter(
+            (m: { read: boolean }) => !m.read
+          ).length,
+          totalRegistrations: registrations.length,
+          pendingRegistrations: registrations.filter(
+            (r: { status: string }) => r.status === "pending"
+          ).length,
+        });
+      } catch {
+        /* stats remain at defaults */
+      }
+    }
+
+    fetchStats();
+  }, []);
+
+  const cards = [
+    {
+      title: "Nachrichten",
+      value: stats.totalMessages,
+      subtitle: `${stats.unreadMessages} ungelesen`,
+      color: "bg-blue-500",
+      icon: (
+        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
+    },
+    {
+      title: "Ungelesene Nachrichten",
+      value: stats.unreadMessages,
+      subtitle: "Aktion erforderlich",
+      color: "bg-orange-500",
+      icon: (
+        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+        </svg>
+      ),
+    },
+    {
+      title: "Pilot-Anmeldungen",
+      value: stats.totalRegistrations,
+      subtitle: `${stats.pendingRegistrations} ausstehend`,
+      color: "bg-green-500",
+      icon: (
+        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      ),
+    },
+    {
+      title: "Ausstehende Anmeldungen",
+      value: stats.pendingRegistrations,
+      subtitle: "Warten auf Bearbeitung",
+      color: "bg-purple-500",
+      icon: (
+        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+    },
+  ];
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold text-primary-dark">Dashboard</h1>
-          <p className="text-text-gray mt-1">Übersicht über alle Aktivitäten</p>
-        </div>
-
-        <Stats stats={stats} />
-
-        <div className="grid lg:grid-cols-2 gap-6">
-          <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-            <h3 className="font-semibold text-primary-dark mb-3">Letzte Nachrichten</h3>
-            {messages.slice(0, 5).length === 0 ? (
-              <p className="text-text-gray text-sm">Keine Nachrichten</p>
-            ) : (
-              <div className="space-y-3">
-                {messages.slice(0, 5).map((msg) => (
-                  <div key={msg.id} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
-                    <div>
-                      <p className="text-sm font-medium text-text-dark">{msg.name}</p>
-                      <p className="text-xs text-text-gray truncate max-w-[200px]">{msg.message}</p>
-                    </div>
-                    <span className={`px-2 py-0.5 rounded-full text-xs ${
-                      msg.replied ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
-                    }`}>
-                      {msg.replied ? '✓' : 'Neu'}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-            <h3 className="font-semibold text-primary-dark mb-3">Letzte Pilot-Anmeldungen</h3>
-            {pilotRegistrations.slice(0, 5).length === 0 ? (
-              <p className="text-text-gray text-sm">Keine Anmeldungen</p>
-            ) : (
-              <div className="space-y-3">
-                {pilotRegistrations.slice(0, 5).map((reg) => (
-                  <div key={reg.id} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
-                    <div>
-                      <p className="text-sm font-medium text-text-dark">{reg.name}</p>
-                      <p className="text-xs text-text-gray">{reg.email}</p>
-                    </div>
-                    <span className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs">
-                      {reg.language}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+    <div>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-dark-900">Dashboard</h1>
+        <p className="text-dark-500">Willkommen im BriefAI Admin-Bereich</p>
       </div>
-    </AdminLayout>
-  )
+
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            className="rounded-xl border border-dark-100 bg-white p-6 shadow-sm"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-dark-400">{card.title}</p>
+                <p className="mt-1 text-3xl font-bold text-dark-900">
+                  {card.value}
+                </p>
+                <p className="mt-1 text-xs text-dark-400">{card.subtitle}</p>
+              </div>
+              <div
+                className={`flex h-12 w-12 items-center justify-center rounded-xl ${card.color}`}
+              >
+                {card.icon}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

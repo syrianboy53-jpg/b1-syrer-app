@@ -1,96 +1,144 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
-interface NavigationProps {
-  locale: 'de' | 'ar'
-  translations: {
-    features: string
-    howItWorks: string
-    faq: string
-    pilot: string
-    contact: string
-    switchLang: string
-  }
-}
+export default function Navigation() {
+  const { t, i18n } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-export default function Navigation({ locale, translations }: NavigationProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const switchPath = locale === 'de' ? '/ar' : '/'
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === "de" ? "ar" : "de";
+    i18n.changeLanguage(newLang);
+    document.documentElement.lang = newLang;
+    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
+  };
+
+  const navLinks = [
+    { href: "#problem", label: t("nav.problem") },
+    { href: "#solution", label: t("nav.solution") },
+    { href: "#features", label: t("nav.features") },
+    { href: "#trust", label: t("nav.trust") },
+    { href: "#pilot", label: t("nav.pilot") },
+    { href: "#faq", label: t("nav.faq") },
+  ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
-      <div className="container-max mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">B</span>
-            </div>
-            <span className="text-xl font-bold text-primary-dark">BriefAI</span>
-          </div>
+    <nav
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/95 shadow-md backdrop-blur-sm"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="container-custom flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <Link href="/" className="text-2xl font-bold text-primary-600">
+          Brief<span className="text-dark-900">AI</span>
+        </Link>
 
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-text-gray hover:text-primary transition-colors text-sm font-medium">
-              {translations.features}
-            </a>
-            <a href="#solution" className="text-text-gray hover:text-primary transition-colors text-sm font-medium">
-              {translations.howItWorks}
-            </a>
-            <a href="#faq" className="text-text-gray hover:text-primary transition-colors text-sm font-medium">
-              {translations.faq}
-            </a>
-            <a href="#pilot" className="text-text-gray hover:text-primary transition-colors text-sm font-medium">
-              {translations.pilot}
-            </a>
-            <Link
-              href={switchPath}
-              className="px-3 py-1.5 border border-gray-200 rounded-full text-sm font-medium text-text-gray hover:border-primary hover:text-primary transition-all"
+        <div className="hidden items-center gap-6 lg:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-sm font-medium text-dark-600 transition-colors hover:text-primary-600"
             >
-              {translations.switchLang}
-            </Link>
-          </div>
-
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            aria-label="Toggle menu"
+              {link.label}
+            </a>
+          ))}
+          <Link
+            href="/admin"
+            className="text-sm font-medium text-dark-400 transition-colors hover:text-primary-600"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
+            {t("nav.admin")}
+          </Link>
+          <button
+            onClick={toggleLanguage}
+            className="rounded-lg border border-dark-200 px-3 py-1.5 text-sm font-medium text-dark-600 transition-all hover:border-primary-300 hover:text-primary-600"
+          >
+            {t("nav.switchLang")}
           </button>
+          <a href="#pilot" className="btn-primary !px-4 !py-2 !text-sm">
+            {t("hero.cta_primary")}
+          </a>
         </div>
 
-        {isOpen && (
-          <div className="md:hidden pb-4 border-t border-gray-100 mt-2 pt-4">
-            <div className="flex flex-col gap-3">
-              <a href="#features" className="text-text-gray hover:text-primary transition-colors text-sm font-medium px-2 py-1" onClick={() => setIsOpen(false)}>
-                {translations.features}
-              </a>
-              <a href="#solution" className="text-text-gray hover:text-primary transition-colors text-sm font-medium px-2 py-1" onClick={() => setIsOpen(false)}>
-                {translations.howItWorks}
-              </a>
-              <a href="#faq" className="text-text-gray hover:text-primary transition-colors text-sm font-medium px-2 py-1" onClick={() => setIsOpen(false)}>
-                {translations.faq}
-              </a>
-              <a href="#pilot" className="text-text-gray hover:text-primary transition-colors text-sm font-medium px-2 py-1" onClick={() => setIsOpen(false)}>
-                {translations.pilot}
-              </a>
-              <Link
-                href={switchPath}
-                className="inline-block px-3 py-1.5 border border-gray-200 rounded-full text-sm font-medium text-text-gray hover:border-primary hover:text-primary transition-all w-fit"
+        <button
+          className="lg:hidden"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
+          <svg
+            className="h-6 w-6 text-dark-700"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            {isOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="border-t border-dark-100 bg-white lg:hidden">
+          <div className="space-y-1 px-4 py-3">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="block rounded-lg px-3 py-2 text-base font-medium text-dark-600 transition-colors hover:bg-primary-50 hover:text-primary-600"
               >
-                {translations.switchLang}
-              </Link>
+                {link.label}
+              </a>
+            ))}
+            <Link
+              href="/admin"
+              onClick={() => setIsOpen(false)}
+              className="block rounded-lg px-3 py-2 text-base font-medium text-dark-400 transition-colors hover:bg-primary-50 hover:text-primary-600"
+            >
+              {t("nav.admin")}
+            </Link>
+            <div className="flex items-center gap-3 px-3 pt-2">
+              <button
+                onClick={toggleLanguage}
+                className="rounded-lg border border-dark-200 px-3 py-1.5 text-sm font-medium text-dark-600"
+              >
+                {t("nav.switchLang")}
+              </button>
+              <a
+                href="#pilot"
+                onClick={() => setIsOpen(false)}
+                className="btn-primary !px-4 !py-2 !text-sm"
+              >
+                {t("hero.cta_primary")}
+              </a>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
-  )
+  );
 }

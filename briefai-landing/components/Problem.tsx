@@ -1,44 +1,44 @@
-interface ProblemProps {
-  translations: {
-    title: string
-    subtitle: string
-    cards: Array<{
-      icon: string
-      title: string
-      description: string
-    }>
-  }
-}
+"use client";
 
-export default function Problem({ translations }: ProblemProps) {
+import { useTranslation } from "react-i18next";
+
+export default function Problem() {
+  const { t } = useTranslation();
+
+  const cards = t("problem.cards", { returnObjects: true }) as Array<{
+    icon: string;
+    title: string;
+    description: string;
+  }>;
+
   return (
-    <section id="problem" className="section-padding bg-soft-gray">
-      <div className="container-max mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark mb-4">
-            {translations.title}
+    <section id="problem" className="section-padding bg-white">
+      <div className="container-custom">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <h2 className="mb-4 text-3xl font-bold text-dark-900 sm:text-4xl">
+            {t("problem.title")}
           </h2>
-          <p className="text-text-gray text-lg max-w-2xl mx-auto">
-            {translations.subtitle}
-          </p>
+          <p className="text-lg text-dark-500">{t("problem.subtitle")}</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {translations.cards.map((card, index) => (
+        <div className="grid gap-8 md:grid-cols-3">
+          {cards.map((card, index) => (
             <div
               key={index}
-              className="card animate-fade-in-up"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="card group text-center"
+              style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <span className="text-4xl mb-4 block">{card.icon}</span>
-              <h3 className="text-xl font-semibold text-primary-dark mb-2">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-red-50 text-3xl transition-transform duration-300 group-hover:scale-110">
+                {card.icon}
+              </div>
+              <h3 className="mb-3 text-xl font-semibold text-dark-900">
                 {card.title}
               </h3>
-              <p className="text-text-gray">{card.description}</p>
+              <p className="text-dark-500">{card.description}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

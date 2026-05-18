@@ -1,118 +1,139 @@
 # BriefAI Landing Page
 
-صفحة هبوط احترافية لمشروع BriefAI - تطبيق يساعد على فهم الرسائل الرسمية الألمانية باستخدام الذكاء الاصطناعي.
+Professional landing page for BriefAI — an AI-powered tool that analyzes official German government letters.
 
-Professional landing page for the BriefAI project – an AI-powered app that helps understand official German letters.
+## Features
 
-## المميزات / Features
+- **Bilingual**: German (default) and Arabic with full RTL support
+- **Responsive**: Mobile-first design with Tailwind CSS
+- **Landing Page Sections**: Hero, Problem, Solution, Features, Trust, Pilot registration, FAQ, Footer
+- **Admin Dashboard**: View messages, pilot registrations, and reply to inquiries
+- **API Routes**: Contact form, pilot registration, admin data management
+- **Local Storage**: JSON file-based data storage (easily replaceable with a database)
 
-- 🌐 دعم ثنائي اللغة (ألماني/عربي) مع RTL
-- 📱 تصميم Mobile First متجاوب
-- 🎨 تصميم احترافي بألوان متناسقة
-- 📝 نموذج تسجيل Pilot يعمل بالكامل
-- 👨‍💼 Dashboard للمدير لإدارة الرسائل والتسجيلات
-- 🔒 API Routes آمنة
-- 💾 نظام تخزين بسيط (JSON files)
+## Tech Stack
 
-## التقنيات / Tech Stack
+- **Next.js 14** (App Router)
+- **React 18**
+- **Tailwind CSS 3**
+- **i18next** for internationalization
+- **TypeScript**
 
-- **Framework:** Next.js 14 (App Router)
-- **Styling:** Tailwind CSS
-- **Language:** TypeScript
-- **Fonts:** Inter (German) / Cairo (Arabic)
-- **Storage:** JSON file-based storage
+## Getting Started
 
-## التثبيت / Installation
+### Prerequisites
+
+- Node.js 18+ installed
+- npm or yarn
+
+### Installation
 
 ```bash
-# انتقل إلى مجلد المشروع
 cd briefai-landing
-
-# تثبيت المكتبات
 npm install
+```
 
-# تشغيل في وضع التطوير
+### Development
+
+```bash
 npm run dev
+```
 
-# بناء المشروع للإنتاج
+Open [http://localhost:3000](http://localhost:3000) to view the landing page.
+
+### Build
+
+```bash
 npm run build
-
-# تشغيل في وضع الإنتاج
 npm start
 ```
 
-## هيكل المشروع / Project Structure
+### Lint & Type Check
+
+```bash
+npm run lint
+npm run typecheck
+```
+
+## Project Structure
 
 ```
 briefai-landing/
 ├── app/
-│   ├── layout.tsx          # Layout الرئيسي
-│   ├── page.tsx            # الصفحة الألمانية
-│   ├── globals.css         # الأنماط العامة
-│   ├── ar/
-│   │   └── page.tsx        # الصفحة العربية
+│   ├── page.tsx                 # Landing page
+│   ├── layout.tsx               # Root layout with i18n
+│   ├── globals.css              # Global styles
 │   ├── admin/
-│   │   ├── page.tsx        # Dashboard
-│   │   ├── messages/       # إدارة الرسائل
-│   │   └── pilot/          # إدارة التسجيلات
+│   │   ├── layout.tsx           # Admin layout with sidebar
+│   │   ├── page.tsx             # Dashboard overview
+│   │   ├── messages/page.tsx    # Messages management
+│   │   └── pilot-registrations/page.tsx  # Pilot registrations
 │   └── api/
-│       ├── contact/        # API التواصل
-│       ├── pilot/          # API التسجيل
-│       └── admin/          # API المدير
+│       ├── contact/route.ts     # Contact form API
+│       ├── pilot/route.ts       # Pilot registration API
+│       └── admin/
+│           ├── messages/route.ts         # Get messages
+│           ├── pilot-registrations/route.ts  # Get registrations
+│           └── reply/route.ts            # Reply to messages
 ├── components/
-│   ├── Navigation.tsx
-│   ├── Hero.tsx
-│   ├── Problem.tsx
-│   ├── Solution.tsx
-│   ├── Features.tsx
-│   ├── Trust.tsx
-│   ├── Pilot.tsx
-│   ├── FAQ.tsx
-│   ├── Footer.tsx
+│   ├── Navigation.tsx           # Nav bar with language toggle
+│   ├── Hero.tsx                 # Hero section
+│   ├── Problem.tsx              # Problem section
+│   ├── Solution.tsx             # Solution steps
+│   ├── Features.tsx             # Features grid
+│   ├── Trust.tsx                # Trust & security section
+│   ├── Pilot.tsx                # Pilot registration form
+│   ├── FAQ.tsx                  # FAQ accordion
+│   ├── Footer.tsx               # Footer
 │   └── admin/
-│       ├── AdminLayout.tsx
-│       ├── Sidebar.tsx
-│       ├── Stats.tsx
-│       ├── MessageList.tsx
-│       └── PilotList.tsx
-├── lib/
-│   ├── storage.ts          # نظام التخزين
-│   └── translations.ts     # نظام الترجمة
+│       ├── Sidebar.tsx          # Admin sidebar navigation
+│       ├── MessageList.tsx      # Messages with reply functionality
+│       └── PilotList.tsx        # Pilot registrations table
 ├── locales/
-│   ├── de.ts               # الترجمات الألمانية
-│   └── ar.ts               # الترجمات العربية
+│   ├── de.json                  # German translations
+│   └── ar.json                  # Arabic translations
+├── lib/
+│   ├── i18n.ts                  # i18next configuration
+│   └── I18nProvider.tsx         # React i18n provider
 ├── data/
-│   ├── messages.json       # تخزين الرسائل
-│   └── pilot-registrations.json
-└── public/                 # الملفات الثابتة
+│   ├── messages.json            # Messages storage
+│   └── pilot-registrations.json # Pilot registrations storage
+└── public/                      # Static assets
 ```
 
-## الألوان / Color Palette
+## Customization
 
-| Color | Hex |
-|-------|-----|
-| Primary Blue | `#2563EB` |
-| Dark Blue | `#0F172A` |
-| Light Blue | `#EFF6FF` |
-| White | `#FFFFFF` |
-| Soft Gray | `#F8FAFC` |
-| Text Dark | `#111827` |
-| Text Gray | `#6B7280` |
-| Success Green | `#16A34A` |
-| Warning Orange | `#F59E0B` |
-| Danger Red | `#DC2626` |
+### Colors
 
-## الروابط / URLs
+Primary colors are defined in `tailwind.config.js`:
+- Primary Blue: `#2563EB`
+- Dark Blue: `#0F172A`
 
-- `/` – الصفحة الرئيسية (ألماني)
-- `/ar` – الصفحة العربية
-- `/admin` – Dashboard المدير
-- `/admin/messages` – إدارة الرسائل
-- `/admin/pilot` – إدارة تسجيلات Pilot
+### Fonts
 
-## ملاحظات / Notes
+- **German**: Inter (Google Fonts)
+- **Arabic**: Cairo (Google Fonts)
 
-- المشروع مستقل تماماً ويمكن نقله بسهولة
-- الكود نظيف ومنظم
-- يمكن إضافة صور وفيديوهات لاحقاً في مجلد `/public`
-- نظام التخزين بسيط (JSON files) ويمكن استبداله بقاعدة بيانات لاحقاً
+### Adding Images/Video
+
+Place media files in the `public/` directory and reference them in components.
+
+## Admin Dashboard
+
+Access the admin panel at `/admin`. Features:
+- Dashboard with statistics overview
+- Messages list with reply functionality
+- Pilot registrations table with status tracking
+
+## Deployment
+
+The project is ready for deployment on Vercel, Netlify, or any Node.js hosting:
+
+```bash
+npm run build
+npm start
+```
+
+## License
+
+Private - All rights reserved.

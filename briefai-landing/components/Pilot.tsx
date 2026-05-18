@@ -1,152 +1,177 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
+import { useState, FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 
-interface PilotProps {
-  translations: {
-    title: string
-    subtitle: string
-    benefits: string[]
-    form: {
-      name: string
-      email: string
-      language: string
-      languages: string[]
-      message: string
-      submit: string
-      success: string
-    }
-  }
-}
-
-export default function Pilot({ translations }: PilotProps) {
+export default function Pilot() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    language: '',
-    message: '',
-  })
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+    name: "",
+    email: "",
+    phone: "",
+    reason: "",
+  });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+  const benefits = t("pilot.benefits", { returnObjects: true }) as string[];
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
 
     try {
-      const response = await fetch('/api/pilot', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/pilot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      })
+      });
 
-      if (response.ok) {
-        setIsSubmitted(true)
-        setFormData({ name: '', email: '', language: '', message: '' })
+      if (res.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", phone: "", reason: "" });
+      } else {
+        setStatus("error");
       }
-    } catch (error) {
-      console.error('Error submitting form:', error)
-    } finally {
-      setIsLoading(false)
+    } catch {
+      setStatus("error");
     }
-  }
+  };
 
   return (
-    <section id="pilot" className="section-padding bg-primary-light">
-      <div className="container-max mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section id="pilot" className="section-padding gradient-bg">
+      <div className="container-custom">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark mb-4">
-              {translations.title}
+            <h2 className="mb-4 text-3xl font-bold text-dark-900 sm:text-4xl">
+              {t("pilot.title")}
             </h2>
-            <p className="text-text-gray text-lg mb-6">
-              {translations.subtitle}
+            <p className="mb-4 text-lg text-dark-500">
+              {t("pilot.subtitle")}
             </p>
-            <ul className="space-y-3">
-              {translations.benefits.map((benefit, index) => (
+            <p className="mb-8 text-dark-500">{t("pilot.description")}</p>
+
+            <ul className="space-y-4">
+              {benefits.map((benefit, index) => (
                 <li key={index} className="flex items-center gap-3">
-                  <div className="w-5 h-5 bg-success rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-600">
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
-                  </div>
-                  <span className="text-text-dark font-medium">{benefit}</span>
+                  </span>
+                  <span className="text-dark-700">{benefit}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="bg-white rounded-2xl p-8 shadow-lg">
-            {isSubmitted ? (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-success" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
+          <div className="card !p-8">
+            {status === "success" ? (
+              <div className="py-12 text-center">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-3xl">
+                  🎉
                 </div>
-                <p className="text-lg font-semibold text-primary-dark">
-                  {translations.form.success}
+                <p className="text-lg font-semibold text-green-700">
+                  {t("pilot.form.success")}
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-medium text-text-dark mb-1">
-                    {translations.form.name}
+                  <label
+                    htmlFor="name"
+                    className="mb-1 block text-sm font-medium text-dark-700"
+                  >
+                    {t("pilot.form.name")} *
                   </label>
                   <input
+                    id="name"
                     type="text"
                     required
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    className="w-full rounded-lg border border-dark-200 px-4 py-3 text-dark-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-text-dark mb-1">
-                    {translations.form.email}
+                  <label
+                    htmlFor="email"
+                    className="mb-1 block text-sm font-medium text-dark-700"
+                  >
+                    {t("pilot.form.email")} *
                   </label>
                   <input
+                    id="email"
                     type="email"
                     required
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="w-full rounded-lg border border-dark-200 px-4 py-3 text-dark-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-text-dark mb-1">
-                    {translations.form.language}
-                  </label>
-                  <select
-                    required
-                    value={formData.language}
-                    onChange={(e) => setFormData({ ...formData, language: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                  <label
+                    htmlFor="phone"
+                    className="mb-1 block text-sm font-medium text-dark-700"
                   >
-                    <option value="">{translations.form.language}</option>
-                    {translations.form.languages.map((lang) => (
-                      <option key={lang} value={lang}>{lang}</option>
-                    ))}
-                  </select>
+                    {t("pilot.form.phone")}
+                  </label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
+                    className="w-full rounded-lg border border-dark-200 px-4 py-3 text-dark-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+                  />
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-text-dark mb-1">
-                    {translations.form.message}
+                  <label
+                    htmlFor="reason"
+                    className="mb-1 block text-sm font-medium text-dark-700"
+                  >
+                    {t("pilot.form.reason")}
                   </label>
                   <textarea
+                    id="reason"
                     rows={3}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all resize-none"
+                    value={formData.reason}
+                    onChange={(e) =>
+                      setFormData({ ...formData, reason: e.target.value })
+                    }
+                    className="w-full rounded-lg border border-dark-200 px-4 py-3 text-dark-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
                   />
                 </div>
+
+                {status === "error" && (
+                  <p className="text-sm text-red-600">
+                    {t("pilot.form.error")}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  disabled={isLoading}
-                  className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={status === "loading"}
+                  className="btn-primary w-full disabled:opacity-50"
                 >
-                  {isLoading ? '...' : translations.form.submit}
+                  {status === "loading" ? "..." : t("pilot.form.submit")}
                 </button>
               </form>
             )}
@@ -154,5 +179,5 @@ export default function Pilot({ translations }: PilotProps) {
         </div>
       </div>
     </section>
-  )
+  );
 }

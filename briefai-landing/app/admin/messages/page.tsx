@@ -1,71 +1,73 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import AdminLayout from '@/components/admin/AdminLayout'
-import MessageList from '@/components/admin/MessageList'
+import { useEffect, useState, useCallback } from "react";
+import MessageList from "@/components/admin/MessageList";
+
+interface Reply {
+  text: string;
+  createdAt: string;
+}
 
 interface Message {
-  id: string
-  name: string
-  email: string
-  message: string
-  createdAt: string
-  replied: boolean
-  reply?: string
-  repliedAt?: string
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  createdAt: string;
+  read: boolean;
+  replies: Reply[];
 }
 
 export default function MessagesPage() {
-  const [messages, setMessages] = useState<Message[]>([])
-  const [loading, setLoading] = useState(true)
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchMessages = useCallback(async () => {
+    try {
+      const res = await fetch("/api/admin/messages");
+      const data = await res.json();
+      setMessages(data);
+    } catch {
+      /* messages remain empty */
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    fetchMessages()
-  }, [])
+    fetchMessages();
+  }, [fetchMessages]);
 
-  const fetchMessages = async () => {
+  const handleReply = async (messageId: string, reply: string) => {
     try {
-      const res = await fetch('/api/admin/messages')
-      const data = await res.json()
-      setMessages(data)
-    } catch (error) {
-      console.error('Error fetching messages:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+      const res = await fetch("/api/admin/reply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messageId, reply }),
+      });
 
-  const handleReply = async (id: string, reply: string) => {
-    try {
-      const res = await fetch('/api/admin/reply', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, reply }),
-      })
       if (res.ok) {
-        await fetchMessages()
+        await fetchMessages();
       }
-    } catch (error) {
-      console.error('Error sending reply:', error)
+    } catch {
+      /* reply failed silently */
     }
-  }
+  };
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold text-primary-dark">Nachrichten</h1>
-          <p className="text-text-gray mt-1">Alle eingehenden Nachrichten verwalten</p>
-        </div>
-
-        {loading ? (
-          <div className="text-center py-12">
-            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-          </div>
-        ) : (
-          <MessageList messages={messages} onReply={handleReply} />
-        )}
+    <div>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-dark-900">Nachrichten</h1>
+        <p className="text-dark-500">
+          Alle eingehenden Nachrichten und Anfragen
+        </p>
       </div>
-    </AdminLayout>
-  )
+
+      {loading ? (
+        <div className="py-12 text-center text-dark-400">Laden...</div>
+      ) : (
+        <MessageList messages={messages} onReply={handleReply} />
+      )}
+    </div>
+  );
 }

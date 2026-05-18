@@ -1,51 +1,59 @@
-interface SolutionProps {
-  translations: {
-    title: string
-    subtitle: string
-    steps: Array<{
-      number: string
-      title: string
-      description: string
-    }>
-  }
-}
+"use client";
 
-export default function Solution({ translations }: SolutionProps) {
+import { useTranslation } from "react-i18next";
+
+export default function Solution() {
+  const { t } = useTranslation();
+
+  const steps = t("solution.steps", { returnObjects: true }) as Array<{
+    number: string;
+    title: string;
+    description: string;
+  }>;
+
   return (
-    <section id="solution" className="section-padding bg-white">
-      <div className="container-max mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark mb-4">
-            {translations.title}
+    <section id="solution" className="section-padding gradient-bg">
+      <div className="container-custom">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <h2 className="mb-4 text-3xl font-bold text-dark-900 sm:text-4xl">
+            {t("solution.title")}
           </h2>
-          <p className="text-text-gray text-lg max-w-2xl mx-auto">
-            {translations.subtitle}
-          </p>
+          <p className="text-lg text-dark-500">{t("solution.subtitle")}</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {translations.steps.map((step, index) => (
-            <div
-              key={index}
-              className="text-center animate-fade-in-up"
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
-              <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg">
-                {step.number}
+        <div className="relative mx-auto max-w-4xl">
+          <div className="absolute left-8 top-0 hidden h-full w-0.5 bg-primary-200 md:left-1/2 md:block" />
+
+          <div className="space-y-12">
+            {steps.map((step, index) => (
+              <div
+                key={index}
+                className={`relative flex flex-col gap-6 md:flex-row md:items-center ${
+                  index % 2 === 1 ? "md:flex-row-reverse" : ""
+                }`}
+              >
+                <div className="flex-1">
+                  <div className="card">
+                    <div className="mb-3 flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 text-lg font-bold text-white">
+                        {step.number}
+                      </span>
+                      <h3 className="text-xl font-semibold text-dark-900">
+                        {step.title}
+                      </h3>
+                    </div>
+                    <p className="text-dark-500">{step.description}</p>
+                  </div>
+                </div>
+
+                <div className="hidden h-4 w-4 flex-shrink-0 rounded-full border-4 border-primary-600 bg-white md:block" />
+
+                <div className="hidden flex-1 md:block" />
               </div>
-              <h3 className="text-xl font-semibold text-primary-dark mb-2">
-                {step.title}
-              </h3>
-              <p className="text-text-gray max-w-xs mx-auto">
-                {step.description}
-              </p>
-              {index < translations.steps.length - 1 && (
-                <div className="hidden md:block absolute top-8 right-0 w-1/3 h-0.5 bg-gray-200"></div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

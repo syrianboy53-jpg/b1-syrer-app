@@ -1,22 +1,32 @@
-import type { Metadata } from 'next'
-import './globals.css'
+import type { Metadata } from "next";
+import "./globals.css";
+import I18nProvider from "@/lib/I18nProvider";
 
 export const metadata: Metadata = {
-  title: 'BriefAI – Behördenbriefe verstehen mit KI',
-  description: 'BriefAI hilft Ihnen, offizielle Briefe auf Deutsch zu verstehen – einfach fotografieren, sofort übersetzen und eine klare Zusammenfassung erhalten.',
-  keywords: 'BriefAI, Behördenbriefe, Übersetzung, KI, Deutsch, Arabisch, Integration',
-}
+  title: "BriefAI – Amtliche Briefe verstehen mit KI",
+  description:
+    "BriefAI analysiert deutsche Behördenbriefe mit KI – erklärt den Inhalt, erkennt Fristen und schlägt nächste Schritte vor.",
+  keywords:
+    "BriefAI, Behördenbriefe, KI, Künstliche Intelligenz, Brief analysieren, Amtsbriefe, Deutschland",
+  openGraph: {
+    title: "BriefAI – Amtliche Briefe verstehen mit KI",
+    description:
+      "BriefAI analysiert deutsche Behördenbriefe mit KI – erklärt den Inhalt, erkennt Fristen und schlägt nächste Schritte vor.",
+    type: "website",
+    locale: "de_DE",
+  },
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="de" dir="ltr">
-      <body className="font-inter bg-white text-text-dark">
-        {children}
+      <body>
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
-  )
+  );
 }
